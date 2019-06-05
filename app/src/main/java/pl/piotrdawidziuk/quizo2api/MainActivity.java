@@ -2,7 +2,10 @@ package pl.piotrdawidziuk.quizo2api;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -11,6 +14,7 @@ import java.util.List;
 
 import pl.piotrdawidziuk.quizo2api.model.QuizList;
 import pl.piotrdawidziuk.quizo2api.model.QuizListItem;
+import pl.piotrdawidziuk.quizo2api.service.QuizItemAdapter;
 import pl.piotrdawidziuk.quizo2api.service.QuizO2Api;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,13 +26,15 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
     private QuizO2Api quizO2Api;
+    private QuizItemAdapter quizItemAdapter;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = findViewById(R.id.text_view_result);
+       // textView = findViewById(R.id.text_view_result);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://quiz.o2.pl/api/v1/")
@@ -36,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         quizO2Api = retrofit.create(QuizO2Api.class);
+
+        recyclerView=(RecyclerView)findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         getQuizes();
 
@@ -47,12 +56,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<QuizList> call, Response<QuizList> response) {
                 if(!response.isSuccessful()){
-                    textView.setText("Code: "+response);
+//                    textView.setText("Code: "+response);
                 }
 
                 QuizList quizList = response.body();
 
                 ArrayList<QuizListItem> quizes = quizList.getItems();
+
+                quizItemAdapter=new QuizItemAdapter(MainActivity.this, quizes);
+                recyclerView.setAdapter(quizItemAdapter);
 
                 for (QuizListItem quiz : quizes) {
                     String content = "";
@@ -60,15 +72,17 @@ public class MainActivity extends AppCompatActivity {
                     content += "Title: " + quiz.getTitle()+"\n";
                     content += "-------------------------\n";
 
-                    textView.append(content);
+//                    textView.append(content);
                 }
 
             }
 
             @Override
             public void onFailure(Call<QuizList> call, Throwable t) {
-                textView.setText(t.getMessage());
+//                textView.setText(t.getMessage());
+                Toast.makeText(MainActivity.this,"Oops! Something went wrong!",Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 }
