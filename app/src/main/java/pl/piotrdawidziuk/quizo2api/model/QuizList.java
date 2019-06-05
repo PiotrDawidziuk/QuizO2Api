@@ -1,7 +1,6 @@
 package pl.piotrdawidziuk.quizo2api.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class QuizList {
 

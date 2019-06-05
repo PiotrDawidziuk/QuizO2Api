@@ -22,9 +22,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+//notes: https://www.freshbytelabs.com/2018/12/android-recyclerview-with-cardview.html
+
 public class MainActivity extends AppCompatActivity {
 
-    private TextView textView;
     private QuizO2Api quizO2Api;
     private QuizItemAdapter quizItemAdapter;
     RecyclerView recyclerView;
@@ -34,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       // textView = findViewById(R.id.text_view_result);
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://quiz.o2.pl/api/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         quizO2Api = retrofit.create(QuizO2Api.class);
 
-        recyclerView=(RecyclerView)findViewById(R.id.recycler_view);
+        recyclerView=findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         getQuizes();
@@ -56,30 +55,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<QuizList> call, Response<QuizList> response) {
                 if(!response.isSuccessful()){
-//                    textView.setText("Code: "+response);
+                    Toast.makeText(MainActivity.this,"Oops! Something went wrong!",Toast.LENGTH_SHORT).show();
                 }
-
                 QuizList quizList = response.body();
-
                 ArrayList<QuizListItem> quizes = quizList.getItems();
 
                 quizItemAdapter=new QuizItemAdapter(MainActivity.this, quizes);
                 recyclerView.setAdapter(quizItemAdapter);
 
-                for (QuizListItem quiz : quizes) {
-                    String content = "";
-                    content += "ID: " + quiz.getId()+"\n";
-                    content += "Title: " + quiz.getTitle()+"\n";
-                    content += "-------------------------\n";
-
-//                    textView.append(content);
-                }
-
             }
 
             @Override
             public void onFailure(Call<QuizList> call, Throwable t) {
-//                textView.setText(t.getMessage());
                 Toast.makeText(MainActivity.this,"Oops! Something went wrong!",Toast.LENGTH_SHORT).show();
             }
         });
