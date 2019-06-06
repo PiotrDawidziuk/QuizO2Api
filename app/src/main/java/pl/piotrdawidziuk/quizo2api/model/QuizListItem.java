@@ -6,6 +6,7 @@ public class QuizListItem {
 
     String id;
     String title;
+    String url;
 
     public String getId() {
         return id;
@@ -15,8 +16,13 @@ public class QuizListItem {
         return title;
     }
 
-    public QuizListItem(String id, String title) {
+    public String getUrl() {
+        return url;
+    }
+
+    public QuizListItem(String id, String title,String url) {
         this.id = id;
         this.title = title;
+        this.url = url;
     }
 }

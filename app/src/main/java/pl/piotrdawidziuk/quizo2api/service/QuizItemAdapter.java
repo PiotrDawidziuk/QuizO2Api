@@ -5,7 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -39,9 +42,12 @@ public class QuizItemAdapter extends RecyclerView.Adapter<QuizItemAdapter.ViewHo
 
         String id =quizItem.getId();
         String title = quizItem.getTitle();
+        String imageUrl = quizItem.getUrl();
 
         holder.idTextView.setText(id);
         holder.titleTextView.setText(title);
+        Glide.with(holder.imageView.getContext()).load(imageUrl).fitCenter().into(holder.imageView);
+
     }
 
     // total number of rows
@@ -55,12 +61,16 @@ public class QuizItemAdapter extends RecyclerView.Adapter<QuizItemAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView idTextView;
         TextView titleTextView;
+        ImageView imageView;
 
 
         ViewHolder(View itemView) {
             super(itemView);
             idTextView = itemView.findViewById(R.id.text_view_id);
             titleTextView = itemView.findViewById(R.id.text_view_title);
+            imageView = itemView.findViewById(R.id.quiz_list_item_image);
+
+
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

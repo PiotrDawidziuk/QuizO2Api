@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
 
     public static final String EXTRA_ID = "id";
     public static final String EXTRA_TITLE = "title";
+    public static final String EXTRA_URL = "url";
 
     private QuizO2Api quizO2Api;
     private QuizItemAdapter quizItemAdapter;
