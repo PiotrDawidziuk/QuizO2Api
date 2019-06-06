@@ -1,11 +1,16 @@
 package pl.piotrdawidziuk.quizo2api.activities;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Display;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import pl.piotrdawidziuk.quizo2api.R;
 import pl.piotrdawidziuk.quizo2api.model.Quiz;
@@ -38,9 +43,20 @@ public class DetailActivity extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.detail_quiz_image_view);
 
         TextView quizTitleTextView = findViewById(R.id.detail_quiz_title);
-        quizDescription = findViewById(R.id.detail_quiz_id_from_retrofit);
+        quizDescription = findViewById(R.id.detail_quiz_description);
 
-        quizTitleTextView.setText(imageUrl);
+        quizTitleTextView.setText(quizTitle);
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        Glide.with(DetailActivity.this)
+                .load(imageUrl)
+                .apply(new RequestOptions()
+                        .override(size.x, size.y))
+                .fitCenter()
+                .into(imageView);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://quiz.o2.pl/api/v1/")

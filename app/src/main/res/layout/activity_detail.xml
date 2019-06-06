@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.DetailActivity">
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -27,15 +34,16 @@
         android:layout_margin="@dimen/item_margin_default"
         tools:text="TITLE IS HERE"/>
     <TextView
-        android:id="@+id/detail_quiz_id_from_retrofit"
+        android:id="@+id/detail_quiz_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/detail_quiz_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="@dimen/text_size_xl_large"
+        android:textSize="@dimen/text_size_large"
         android:layout_margin="@dimen/item_margin_default"
         tools:text="ID FROM RETROFIT IS HERE"
         />
 
 </android.support.constraint.ConstraintLayout>
+</ScrollView>
