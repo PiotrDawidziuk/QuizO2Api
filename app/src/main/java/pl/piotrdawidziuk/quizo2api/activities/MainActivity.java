@@ -1,18 +1,15 @@
-package pl.piotrdawidziuk.quizo2api;
+package pl.piotrdawidziuk.quizo2api.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.List;
 
+import pl.piotrdawidziuk.quizo2api.R;
 import pl.piotrdawidziuk.quizo2api.model.QuizList;
 import pl.piotrdawidziuk.quizo2api.model.QuizListItem;
 import pl.piotrdawidziuk.quizo2api.service.QuizItemAdapter;
@@ -26,6 +23,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 //notes: https://www.freshbytelabs.com/2018/12/android-recyclerview-with-cardview.html
 
 public class MainActivity extends AppCompatActivity implements QuizItemAdapter.ItemClickListener {
+
+    public static final String EXTRA_ID = "id";
+    public static final String EXTRA_TITLE = "title";
 
     private QuizO2Api quizO2Api;
     private QuizItemAdapter quizItemAdapter;
