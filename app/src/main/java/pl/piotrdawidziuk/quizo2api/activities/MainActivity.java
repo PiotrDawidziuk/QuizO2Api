@@ -1,5 +1,6 @@
 package pl.piotrdawidziuk.quizo2api.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
     private QuizO2Api quizO2Api;
     private QuizItemAdapter quizItemAdapter;
     RecyclerView recyclerView;
+    ArrayList<QuizListItem> quizes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
                     Toast.makeText(MainActivity.this,"Oops! Something went wrong!",Toast.LENGTH_SHORT).show();
                 }
                 QuizList quizList = response.body();
-                ArrayList<QuizListItem> quizes = quizList.getItems();
+                quizes = quizList.getItems();
 
                 quizItemAdapter=new QuizItemAdapter(MainActivity.this, quizes);
                 recyclerView.setAdapter(quizItemAdapter);
@@ -77,6 +79,15 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
 
     @Override
     public void onItemClick(View view, int position) {
+
+
+        Intent detailIntent = new Intent(this, DetailActivity.class);
+        QuizListItem clickedItem = quizes.get(position);
+
+        detailIntent.putExtra(EXTRA_ID, clickedItem.getId());
+        detailIntent.putExtra(EXTRA_TITLE, clickedItem.getTitle());
+        startActivity(detailIntent);
+
         Toast.makeText(this, "POSITION: " + position, Toast.LENGTH_SHORT).show();
     }
 }
