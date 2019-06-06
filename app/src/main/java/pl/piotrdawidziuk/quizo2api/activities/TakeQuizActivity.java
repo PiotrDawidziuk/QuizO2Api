@@ -59,9 +59,15 @@ public class TakeQuizActivity extends AppCompatActivity {
 
         ArrayList<Question> list = intent
                 .getParcelableArrayListExtra("questions");
-        Toast.makeText(this, list.get(1).getText(), Toast.LENGTH_LONG).show();
 
-        String questionTest = list.get(0).getText();
+//        Toast.makeText(this, list.get(1).getText(), Toast.LENGTH_LONG).show();
+
+        String questionTest = "";
+
+        for (int i = 0; i < list.size(); i++) {
+            questionTest += list.get(i).getText()+"\n\n";
+        }
+
         mTextMessage.setText(questionTest);
 
 //        mTextMessage.setText(questions.get(0).getText());
