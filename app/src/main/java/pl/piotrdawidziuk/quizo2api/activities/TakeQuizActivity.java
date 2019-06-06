@@ -1,5 +1,6 @@
 package pl.piotrdawidziuk.quizo2api.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +38,12 @@ public class TakeQuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_quiz);
         BottomNavigationView navView = findViewById(R.id.nav_view);
+
+        Intent intent = getIntent();
+
+
         mTextMessage = findViewById(R.id.message);
+        mTextMessage.setText(intent.getStringExtra("test"));
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 

@@ -39,7 +39,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String quizId = intent.getStringExtra(EXTRA_ID);
-        String quizTitle = intent.getStringExtra(EXTRA_TITLE);
+        final String quizTitle = intent.getStringExtra(EXTRA_TITLE);
         String imageUrl = intent.getStringExtra(EXTRA_URL);
 
         ImageView imageView = findViewById(R.id.detail_quiz_image_view);
@@ -71,6 +71,7 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(DetailActivity.this, TakeQuizActivity.class);
+                intent.putExtra("test",quizTitle);
                 startActivity(intent);
             }
         });
