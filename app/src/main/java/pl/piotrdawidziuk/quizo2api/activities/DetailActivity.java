@@ -1,18 +1,16 @@
 package pl.piotrdawidziuk.quizo2api.activities;
 
 import android.content.Intent;
-import android.graphics.Point;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Display;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-
-import java.util.ArrayList;
 
 import pl.piotrdawidziuk.quizo2api.R;
 import pl.piotrdawidziuk.quizo2api.model.Quiz;
@@ -32,6 +30,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private QuizO2Api quizO2Api;
     TextView quizDescription;
+    Button takeQuizButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +46,7 @@ public class DetailActivity extends AppCompatActivity {
 
         TextView quizTitleTextView = findViewById(R.id.detail_quiz_title);
         quizDescription = findViewById(R.id.detail_quiz_description);
+        takeQuizButton = findViewById(R.id.detail_take_quiz_button);
 
         quizTitleTextView.setText(quizTitle);
 
@@ -66,6 +66,14 @@ public class DetailActivity extends AppCompatActivity {
 
         getQuizById(quizId);
 
+        takeQuizButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(DetailActivity.this, TakeQuizActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import pl.piotrdawidziuk.quizo2api.R;
 
-public class TakeQuiz extends AppCompatActivity {
+public class TakeQuizActivity extends AppCompatActivity {
     private TextView mTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

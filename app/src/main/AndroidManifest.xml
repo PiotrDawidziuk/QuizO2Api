@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.TakeQuiz"
+            android:name=".activities.TakeQuizActivity"
             android:label="@string/title_activity_take_quiz"></activity>
         <activity android:name=".activities.DetailActivity" />
         <activity android:name=".activities.MainActivity">
