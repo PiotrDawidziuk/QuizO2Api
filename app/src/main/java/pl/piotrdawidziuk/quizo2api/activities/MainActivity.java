@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import pl.piotrdawidziuk.quizo2api.model.QuizList;
 import pl.piotrdawidziuk.quizo2api.model.QuizListItem;
 import pl.piotrdawidziuk.quizo2api.service.QuizItemAdapter;
 import pl.piotrdawidziuk.quizo2api.service.QuizO2Api;
+import pl.piotrdawidziuk.quizo2api.service.ResizeImage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
     public static final String EXTRA_ID = "id";
     public static final String EXTRA_TITLE = "title";
     public static final String EXTRA_URL = "url";
+    public static WindowManager windowManager;
 
     private QuizO2Api quizO2Api;
     private QuizItemAdapter quizItemAdapter;
@@ -38,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        windowManager = getWindowManager();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://quiz.o2.pl/api/v1/")

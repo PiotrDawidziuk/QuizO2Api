@@ -6,9 +6,20 @@ import android.view.WindowManager;
 
 import java.util.ArrayList;
 
+import pl.piotrdawidziuk.quizo2api.activities.MainActivity;
+
 public class ResizeImage {
 
+    private int width;
+    private int height;
 
+    public static int getHeight() {
+        return getDisplaySize(MainActivity.windowManager).get(1);
+    }
+
+    public static int getWidth() {
+        return getDisplaySize(MainActivity.windowManager).get(0);
+    }
 
     public static ArrayList<Integer> getDisplaySize(WindowManager windowManager) {
         Display display = windowManager.getDefaultDisplay();

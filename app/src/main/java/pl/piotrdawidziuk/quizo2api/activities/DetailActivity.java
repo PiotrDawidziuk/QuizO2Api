@@ -50,16 +50,10 @@ public class DetailActivity extends AppCompatActivity {
 
         quizTitleTextView.setText(quizTitle);
 
-//        Display display = getWindowManager().getDefaultDisplay();
-//        Point size = new Point();
-//        display.getSize(size);
-
-        ArrayList dimensions = ResizeImage.getDisplaySize(getWindowManager());
-
         Glide.with(DetailActivity.this)
                 .load(imageUrl)
                 .apply(new RequestOptions()
-                        .override((int) dimensions.get(0), (int)dimensions.get(1)))
+                        .override(ResizeImage.getWidth(),ResizeImage.getHeight()))
                 .fitCenter()
                 .into(imageView);
 
