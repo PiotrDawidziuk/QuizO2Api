@@ -1,5 +1,6 @@
 package pl.piotrdawidziuk.quizo2api.service;
 
+import pl.piotrdawidziuk.quizo2api.model.Quiz;
 import pl.piotrdawidziuk.quizo2api.model.QuizList;
 import pl.piotrdawidziuk.quizo2api.model.QuizListItem;
 import retrofit2.Call;
@@ -12,5 +13,8 @@ public interface QuizO2Api {
     Call<QuizList> getQuizes();
 
     @GET("quiz/{id}/0")
-    Call<QuizListItem> getQuizById(@Path("id") String id);
+    Call<QuizListItem> getQuizListItemById(@Path("id") String id);
+
+    @GET("quiz/{id}/0")
+    Call<Quiz> getQuizById(@Path("id") String id);
 }

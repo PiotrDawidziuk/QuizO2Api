@@ -7,21 +7,20 @@
     tools:context=".activities.DetailActivity"
     android:layout_margin="@dimen/item_margin_default">
 
-    <TextView
-        android:id="@+id/detail_quiz_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="@dimen/text_size_xl_large"
-        android:layout_margin="@dimen/item_margin_default"
-        tools:text="ID IS HERE"/>
+   <ImageView
+       android:id="@+id/detail_quiz_image_view"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:src="@mipmap/ic_launcher"
+       />
     <TextView
         android:id="@+id/detail_quiz_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/detail_quiz_id"
+        app:layout_constraintTop_toBottomOf="@+id/detail_quiz_image_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="@dimen/text_size_xl_large"
