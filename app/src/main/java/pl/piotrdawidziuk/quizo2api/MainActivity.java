@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 //notes: https://www.freshbytelabs.com/2018/12/android-recyclerview-with-cardview.html
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements QuizItemAdapter.ItemClickListener {
 
     private QuizO2Api quizO2Api;
     private QuizItemAdapter quizItemAdapter;
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 quizItemAdapter=new QuizItemAdapter(MainActivity.this, quizes);
                 recyclerView.setAdapter(quizItemAdapter);
 
+                quizItemAdapter.setClickListener(MainActivity.this);
+
             }
 
             @Override
@@ -72,4 +75,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(this, "POSITION: " + position, Toast.LENGTH_SHORT).show();
+    }
 }

@@ -61,13 +61,21 @@ public class QuizItemAdapter extends RecyclerView.Adapter<QuizItemAdapter.ViewHo
             super(itemView);
             idTextView = itemView.findViewById(R.id.text_view_id);
             titleTextView = itemView.findViewById(R.id.text_view_title);
-            //itemView.setOnClickListener(this);
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (mClickListener != null){
+                            int position = getAdapterPosition();
+                            if (position != RecyclerView.NO_POSITION){
+                                mClickListener.onItemClick(view,position);
+                            }
+                        }
+
+                    }
+                });
         }
 
-//        @Override
-//        public void onClick(View view) {
-//            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
-//        }
+
     }
 
     // convenience method for getting data at click position
@@ -76,7 +84,7 @@ public class QuizItemAdapter extends RecyclerView.Adapter<QuizItemAdapter.ViewHo
     }
 
     // allows clicks events to be caught
-    void setClickListener(ItemClickListener itemClickListener) {
+    public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
@@ -84,5 +92,7 @@ public class QuizItemAdapter extends RecyclerView.Adapter<QuizItemAdapter.ViewHo
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }
+
+
 }
 
