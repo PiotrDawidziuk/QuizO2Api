@@ -12,9 +12,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.util.ArrayList;
+
 import pl.piotrdawidziuk.quizo2api.R;
 import pl.piotrdawidziuk.quizo2api.model.Quiz;
 import pl.piotrdawidziuk.quizo2api.service.QuizO2Api;
+import pl.piotrdawidziuk.quizo2api.service.ResizeImage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,14 +50,16 @@ public class DetailActivity extends AppCompatActivity {
 
         quizTitleTextView.setText(quizTitle);
 
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
+//        Display display = getWindowManager().getDefaultDisplay();
+//        Point size = new Point();
+//        display.getSize(size);
+
+        ArrayList dimensions = ResizeImage.getDisplaySize(getWindowManager());
 
         Glide.with(DetailActivity.this)
                 .load(imageUrl)
                 .apply(new RequestOptions()
-                        .override(size.x, size.y))
+                        .override((int) dimensions.get(0), (int)dimensions.get(1)))
                 .fitCenter()
                 .into(imageView);
 
