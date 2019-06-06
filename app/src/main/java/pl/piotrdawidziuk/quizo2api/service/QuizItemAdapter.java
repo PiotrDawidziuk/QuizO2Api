@@ -9,10 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
 import pl.piotrdawidziuk.quizo2api.R;
+import pl.piotrdawidziuk.quizo2api.model.MainPhoto;
 import pl.piotrdawidziuk.quizo2api.model.QuizListItem;
 
 public class QuizItemAdapter extends RecyclerView.Adapter<QuizItemAdapter.ViewHolder> {
@@ -42,11 +44,16 @@ public class QuizItemAdapter extends RecyclerView.Adapter<QuizItemAdapter.ViewHo
 
         String id =quizItem.getId();
         String title = quizItem.getTitle();
-        String imageUrl = quizItem.getUrl();
+        MainPhoto mainPhoto = quizItem.getMainPhoto();
 
         holder.idTextView.setText(id);
         holder.titleTextView.setText(title);
-        Glide.with(holder.imageView.getContext()).load(imageUrl).fitCenter().into(holder.imageView);
+        Glide.with(holder.imageView.getContext())
+                .load(mainPhoto.getUrl())
+                .apply(new RequestOptions()
+                        .override(500, 300))
+                .fitCenter()
+                .into(holder.imageView);
 
     }
 

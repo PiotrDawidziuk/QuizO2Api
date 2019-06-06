@@ -6,8 +6,7 @@ public class QuizListItem {
 
     String id;
     String title;
-    String url;
-
+    MainPhoto mainPhoto;
     public String getId() {
         return id;
     }
@@ -16,13 +15,17 @@ public class QuizListItem {
         return title;
     }
 
-    public String getUrl() {
-        return url;
+    public MainPhoto getUrl() {
+        return mainPhoto;
     }
 
-    public QuizListItem(String id, String title,String url) {
+    public MainPhoto getMainPhoto() {
+        return mainPhoto;
+    }
+
+    public QuizListItem(String id, String title, MainPhoto mainPhoto) {
         this.id = id;
         this.title = title;
-        this.url = url;
+        this.mainPhoto = mainPhoto;
     }
 }
