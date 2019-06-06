@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">QuizO2Api</string>
     <string name="title_activity_take_quiz">TakeQuiz</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+
+    <string name="title_home">Previous Question</string>
+    <string name="title_dashboard">NOTHING</string>
+    <string name="title_notifications">Next Question</string>
+
     <string name="quiz_start_text">Begin Quiz</string>
+
 </resources>
