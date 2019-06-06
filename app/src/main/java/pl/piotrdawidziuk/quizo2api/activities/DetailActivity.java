@@ -11,8 +11,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 import pl.piotrdawidziuk.quizo2api.R;
+import pl.piotrdawidziuk.quizo2api.model.Question;
 import pl.piotrdawidziuk.quizo2api.model.Quiz;
 import pl.piotrdawidziuk.quizo2api.service.QuizO2Api;
 import pl.piotrdawidziuk.quizo2api.service.ResizeImage;
@@ -29,8 +33,11 @@ import static pl.piotrdawidziuk.quizo2api.activities.MainActivity.EXTRA_URL;
 public class DetailActivity extends AppCompatActivity {
 
     private QuizO2Api quizO2Api;
-    TextView quizDescription;
+    TextView quizDescriptionTextView;
     Button takeQuizButton;
+    String quizDescription;
+    ArrayList<Question> questionArrayList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +49,12 @@ public class DetailActivity extends AppCompatActivity {
         final String quizTitle = intent.getStringExtra(EXTRA_TITLE);
         String imageUrl = intent.getStringExtra(EXTRA_URL);
 
+        questionArrayList = new ArrayList<>();
+
         ImageView imageView = findViewById(R.id.detail_quiz_image_view);
 
         TextView quizTitleTextView = findViewById(R.id.detail_quiz_title);
-        quizDescription = findViewById(R.id.detail_quiz_description);
+        quizDescriptionTextView = findViewById(R.id.detail_quiz_description);
         takeQuizButton = findViewById(R.id.detail_take_quiz_button);
 
         quizTitleTextView.setText(quizTitle);
@@ -71,7 +80,10 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(DetailActivity.this, TakeQuizActivity.class);
-                intent.putExtra("test",quizTitle);
+                intent.putExtra("test",quizDescription);
+
+                intent.putExtra("questions",questionArrayList);
+
                 startActivity(intent);
             }
         });
@@ -88,7 +100,10 @@ public class DetailActivity extends AppCompatActivity {
                 }
 
                 Quiz quiz = response.body();
-                quizDescription.setText(quiz.getContent());
+
+                quizDescription = quiz.getContent();
+                questionArrayList = quiz.getQuestions();
+                quizDescriptionTextView.setText(quizDescription);
 
             }
 
