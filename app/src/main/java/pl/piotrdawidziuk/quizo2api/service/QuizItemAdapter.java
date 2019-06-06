@@ -47,7 +47,7 @@ public class QuizItemAdapter extends RecyclerView.Adapter<QuizItemAdapter.ViewHo
         String id =quizItem.getId();
         String title = quizItem.getTitle();
         MainPhoto mainPhoto = quizItem.getMainPhoto();
-        
+
         holder.idTextView.setText(id);
         holder.titleTextView.setText(title);
         Glide.with(holder.imageView.getContext())
