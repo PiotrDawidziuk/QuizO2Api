@@ -14,8 +14,21 @@ public class Question implements Parcelable {
         this.answers = answers;
     }
 
+    public String getText() {
+        return text;
+    }
+
+    public ArrayList<Answer> getAnswers() {
+        return answers;
+    }
+
+    public static Creator<Question> getCREATOR() {
+        return CREATOR;
+    }
+
     protected Question(Parcel in) {
         text = in.readString();
+        answers = in.createTypedArrayList(Answer.CREATOR);
     }
 
     public static final Creator<Question> CREATOR = new Creator<Question>() {
@@ -30,14 +43,6 @@ public class Question implements Parcelable {
         }
     };
 
-    public String getText() {
-        return text;
-    }
-
-    public ArrayList<Answer> getAnswers() {
-        return answers;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -46,5 +51,6 @@ public class Question implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(text);
+        parcel.writeTypedList(answers);
     }
 }

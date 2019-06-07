@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import pl.piotrdawidziuk.quizo2api.R;
+import pl.piotrdawidziuk.quizo2api.model.Answer;
 import pl.piotrdawidziuk.quizo2api.model.Question;
 
 public class TakeQuizActivity extends AppCompatActivity {
@@ -64,9 +65,12 @@ public class TakeQuizActivity extends AppCompatActivity {
 
         String questionTest = "";
 
-        for (int i = 0; i < list.size(); i++) {
-            questionTest += list.get(i).getText()+"\n\n";
-        }
+       questionTest += list.get(0).getAnswers().get(0).getText();
+
+
+//        for (int i = 0; i < list.size(); i++) {
+//            questionTest += list.get(i).getText()+"\n\n";
+//        }
 
         mTextMessage.setText(questionTest);
 
