@@ -43,7 +43,6 @@ public class DetailActivity extends AppCompatActivity {
     Map<String,Quiz> mapOfQuizes;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +93,6 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     public void getQuizById(final String id) {
@@ -121,7 +119,6 @@ public class DetailActivity extends AppCompatActivity {
                         mapOfQuizes.put(id, quiz);
                         HashMapSaver.saveHashMap("quizes", mapOfQuizes, DetailActivity.this);
 
-
                         quizDescription = quiz.getContent();
                         questionArrayList = quiz.getQuestions();
                         quizDescriptionTextView.setText(quizDescription);
@@ -138,8 +135,6 @@ public class DetailActivity extends AppCompatActivity {
                 mapOfQuizes = HashMapSaver.getQuizHashMap("quizes", DetailActivity.this);
 
                 Quiz quiz = HashMapSaver.getQuizHashMap("quizes", DetailActivity.this).get(id);
-
-
 
                 quizDescription = quiz.getContent();
                 questionArrayList = quiz.getQuestions();

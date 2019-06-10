@@ -115,8 +115,7 @@ public class TakeQuizActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.simpleProgressBar);
         progressBar.setProgress(questionNumber);
 
-        list = intent
-                .getParcelableArrayListExtra("questions");
+        list = intent.getParcelableArrayListExtra("questions");
         String questionTest = "";
         imageUrl = "";
 
