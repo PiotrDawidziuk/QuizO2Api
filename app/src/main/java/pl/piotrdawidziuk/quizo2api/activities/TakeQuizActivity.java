@@ -1,18 +1,13 @@
 package pl.piotrdawidziuk.quizo2api.activities;
 
-import android.arch.core.executor.TaskExecutor;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,27 +15,20 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import pl.piotrdawidziuk.quizo2api.R;
-import pl.piotrdawidziuk.quizo2api.model.Answer;
 import pl.piotrdawidziuk.quizo2api.model.Question;
 import pl.piotrdawidziuk.quizo2api.service.AnswersAdapter;
 import pl.piotrdawidziuk.quizo2api.service.HashMapSaver;
-import pl.piotrdawidziuk.quizo2api.service.QuizItemAdapter;
 import pl.piotrdawidziuk.quizo2api.service.ResizeImage;
 
 public class TakeQuizActivity extends AppCompatActivity {
     private TextView mTextMessage;
     private ImageView questionImage;
-    //private List<Question> questions;
     private RecyclerView recyclerView;
     private AnswersAdapter answersAdapter;
     ArrayList<Question> list;

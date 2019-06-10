@@ -1,23 +1,17 @@
 package pl.piotrdawidziuk.quizo2api.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import pl.piotrdawidziuk.quizo2api.R;
-import pl.piotrdawidziuk.quizo2api.model.Quiz;
 import pl.piotrdawidziuk.quizo2api.service.HashMapSaver;
 
 public class QuizFinishedActivity extends AppCompatActivity {

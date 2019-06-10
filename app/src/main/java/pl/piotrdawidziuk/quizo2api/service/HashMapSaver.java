@@ -3,17 +3,14 @@ package pl.piotrdawidziuk.quizo2api.service;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import pl.piotrdawidziuk.quizo2api.model.Quiz;
 import pl.piotrdawidziuk.quizo2api.model.QuizList;
-import pl.piotrdawidziuk.quizo2api.model.QuizListItem;
 
 public class HashMapSaver {
 
