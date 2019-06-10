@@ -92,6 +92,9 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void getQuizById(String id){
+
+        
+
         Call<Quiz> call = quizO2Api.getQuizById(id);
         call.enqueue(new Callback<Quiz>() {
             @Override

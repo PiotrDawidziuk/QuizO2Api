@@ -10,10 +10,13 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import pl.piotrdawidziuk.quizo2api.R;
 import pl.piotrdawidziuk.quizo2api.model.QuizList;
 import pl.piotrdawidziuk.quizo2api.model.QuizListItem;
+import pl.piotrdawidziuk.quizo2api.service.HashMapSaver;
 import pl.piotrdawidziuk.quizo2api.service.QuizItemAdapter;
 import pl.piotrdawidziuk.quizo2api.service.QuizO2Api;
 import retrofit2.Call;
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
     private QuizItemAdapter quizItemAdapter;
     RecyclerView recyclerView;
     ArrayList<QuizListItem> quizes;
+    Map<String,QuizList> mapOfQuizes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
     }
 
     private void getQuizes() {
+        if (HashMapSaver.getQuizListHashMap("quiz_menu",MainActivity.this)==null){
         Call<QuizList> call = quizO2Api.getQuizes();
         call.enqueue(new Callback<QuizList>() {
             @Override
@@ -63,7 +68,15 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
                 if(!response.isSuccessful()){
                     Toast.makeText(MainActivity.this,"Oops!!! Something went wrong!",Toast.LENGTH_SHORT).show();
                 }
+
+                Toast.makeText(MainActivity.this, "NULL!", Toast.LENGTH_SHORT).show();
+
+                mapOfQuizes = new HashMap<>();
                 QuizList quizList = response.body();
+
+                mapOfQuizes.put("quiz_menu",quizList);
+                HashMapSaver.saveHashMap("quiz_menu",mapOfQuizes,MainActivity.this);
+
                 quizes = quizList.getItems();
 
                 quizItemAdapter=new QuizItemAdapter(MainActivity.this, quizes);
@@ -78,6 +91,19 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
                 Toast.makeText(MainActivity.this,"Oops! Something went wrong!",Toast.LENGTH_SHORT).show();
             }
         });
+
+        } else {
+            mapOfQuizes = HashMapSaver.getQuizListHashMap("quizes",MainActivity.this);
+
+            QuizList quizList = HashMapSaver.getQuizListHashMap("quiz_menu",MainActivity.this).get("quiz_menu");
+
+            quizes = quizList.getItems();
+
+            quizItemAdapter=new QuizItemAdapter(MainActivity.this, quizes);
+            recyclerView.setAdapter(quizItemAdapter);
+
+            quizItemAdapter.setClickListener(MainActivity.this);
+        }
     }
 
     @Override
@@ -91,7 +117,5 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
         detailIntent.putExtra(EXTRA_TITLE, clickedItem.getTitle());
         detailIntent.putExtra(EXTRA_URL,clickedItem.getMainPhoto().getUrl());
         startActivity(detailIntent);
-
-        //Toast.makeText(this, "POSITION: " + position, Toast.LENGTH_SHORT).show();
     }
 }
