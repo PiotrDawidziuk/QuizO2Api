@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -22,13 +24,16 @@ import java.util.List;
 import pl.piotrdawidziuk.quizo2api.R;
 import pl.piotrdawidziuk.quizo2api.model.Answer;
 import pl.piotrdawidziuk.quizo2api.model.Question;
+import pl.piotrdawidziuk.quizo2api.service.AnswersAdapter;
+import pl.piotrdawidziuk.quizo2api.service.QuizItemAdapter;
 import pl.piotrdawidziuk.quizo2api.service.ResizeImage;
 
 public class TakeQuizActivity extends AppCompatActivity {
     private TextView mTextMessage;
     private ImageView questionImage;
     //private List<Question> questions;
-
+    private RecyclerView recyclerView;
+    private AnswersAdapter answersAdapter;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -73,7 +78,7 @@ public class TakeQuizActivity extends AppCompatActivity {
 
         String imageUrl = "";
 
-       questionTest += list.get(0).getAnswers().get(0).getText();
+       questionTest += list.get(0).getText();
        imageUrl = list.get(0).getImage().getUrl();
 
         Glide.with(TakeQuizActivity.this)
@@ -83,6 +88,14 @@ public class TakeQuizActivity extends AppCompatActivity {
                 .fitCenter()
                 .into(questionImage);
         mTextMessage.setText(questionTest);
+
+        recyclerView=findViewById(R.id.take_quiz_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(answersAdapter);
+        answersAdapter = new AnswersAdapter (TakeQuizActivity.this, list.get(0).getAnswers());
+        recyclerView.setAdapter(answersAdapter);
+
+
 
 //        mTextMessage.setText(questions.get(0).getText());
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
