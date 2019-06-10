@@ -14,10 +14,15 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import pl.piotrdawidziuk.quizo2api.R;
 import pl.piotrdawidziuk.quizo2api.model.Question;
 import pl.piotrdawidziuk.quizo2api.model.Quiz;
+import pl.piotrdawidziuk.quizo2api.model.QuizList;
+import pl.piotrdawidziuk.quizo2api.service.HashMapSaver;
+import pl.piotrdawidziuk.quizo2api.service.QuizItemAdapter;
 import pl.piotrdawidziuk.quizo2api.service.QuizO2Api;
 import pl.piotrdawidziuk.quizo2api.service.ResizeImage;
 import retrofit2.Call;
@@ -37,6 +42,9 @@ public class DetailActivity extends AppCompatActivity {
     Button takeQuizButton;
     String quizDescription;
     ArrayList<Question> questionArrayList;
+
+    Map<String,Quiz> mapOfQuizes;
+
 
 
     @Override
@@ -91,32 +99,53 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    public void getQuizById(String id){
+    public void getQuizById(final String id) {
 
-        
+        if (HashMapSaver.getQuizListHashMap("quizes", DetailActivity.this) == null) {
 
-        Call<Quiz> call = quizO2Api.getQuizById(id);
-        call.enqueue(new Callback<Quiz>() {
-            @Override
-            public void onResponse(Call<Quiz> call, Response<Quiz> response) {
-                if (!response.isSuccessful()){
-                    Toast.makeText(DetailActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
-                }
+            mapOfQuizes = new HashMap<>();
+            HashMapSaver.saveHashMap("quizes", mapOfQuizes, DetailActivity.this);
 
-                Quiz quiz = response.body();
+        } else {
+
+            if (HashMapSaver.getQuizHashMap("quizes", this).get(id) == null) {
+                Call<Quiz> call = quizO2Api.getQuizById(id);
+                call.enqueue(new Callback<Quiz>() {
+                    @Override
+                    public void onResponse(Call<Quiz> call, Response<Quiz> response) {
+                        if (!response.isSuccessful()) {
+                            Toast.makeText(DetailActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        mapOfQuizes = HashMapSaver.getQuizHashMap("quizes",DetailActivity.this);
+                        Quiz quiz = response.body();
+
+                        mapOfQuizes.put(id, quiz);
+                        HashMapSaver.saveHashMap("quizes", mapOfQuizes, DetailActivity.this);
+
+
+                        quizDescription = quiz.getContent();
+                        questionArrayList = quiz.getQuestions();
+                        quizDescriptionTextView.setText(quizDescription);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Quiz> call, Throwable t) {
+                        Toast.makeText(DetailActivity.this, "Oops! Something went wrong!", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+            }else {
+                mapOfQuizes = HashMapSaver.getQuizHashMap("quizes", DetailActivity.this);
+
+                Quiz quiz = HashMapSaver.getQuizHashMap("quizes", DetailActivity.this).get(id);
 
                 quizDescription = quiz.getContent();
                 questionArrayList = quiz.getQuestions();
                 quizDescriptionTextView.setText(quizDescription);
-
             }
+        }
 
-            @Override
-            public void onFailure(Call<Quiz> call, Throwable t) {
-                Toast.makeText(DetailActivity.this,"Oops! Something went wrong!",Toast.LENGTH_SHORT).show();
-
-            }
-        });
     }
-
 }

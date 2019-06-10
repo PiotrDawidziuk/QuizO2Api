@@ -11,6 +11,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.HashMap;
 import java.util.Map;
 
+import pl.piotrdawidziuk.quizo2api.model.Quiz;
 import pl.piotrdawidziuk.quizo2api.model.QuizList;
 import pl.piotrdawidziuk.quizo2api.model.QuizListItem;
 
@@ -41,6 +42,15 @@ public class HashMapSaver {
         String json = prefs.getString(key,"");
         java.lang.reflect.Type type = new TypeToken<HashMap<String,QuizList>>(){}.getType();
         HashMap<String,QuizList> obj = gson.fromJson(json, type);
+        return obj;
+    }
+
+    public static HashMap<String, Quiz> getQuizHashMap(String key, Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        String json = prefs.getString(key,"");
+        java.lang.reflect.Type type = new TypeToken<HashMap<String,Quiz>>(){}.getType();
+        HashMap<String,Quiz> obj = gson.fromJson(json, type);
         return obj;
     }
 
