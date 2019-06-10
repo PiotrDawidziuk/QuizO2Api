@@ -86,6 +86,8 @@ public class TakeQuizActivity extends AppCompatActivity {
                             AnswersAdapter.RIGHT_ANSWER_IS_SELECTED = false;
                         }
 
+                        HashMapSaver.saveHashMap("map",mapOfPositions,TakeQuizActivity.this);
+
                         intent.putExtra("point_gained",pointsGained);
                         intent.putExtra("points_max",pointsMax);
                         intent.putExtra("quiz_id",quizId);
@@ -104,11 +106,8 @@ public class TakeQuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_take_quiz);
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
-
         Intent intent = getIntent();
-
         quizId = intent.getStringExtra("id");
-
         checkHashMaps();
 
         mTextMessage = findViewById(R.id.message);

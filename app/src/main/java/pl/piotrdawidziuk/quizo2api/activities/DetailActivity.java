@@ -84,13 +84,14 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(DetailActivity.this, TakeQuizActivity.class);
-                intent.putExtra("test",quizDescription);
+                    Intent intent = new Intent(DetailActivity.this, TakeQuizActivity.class);
+                    intent.putExtra("test", quizDescription);
 
-                intent.putExtra("questions",questionArrayList);
-                intent.putExtra("id",quizId);
+                    intent.putExtra("questions", questionArrayList);
+                    intent.putExtra("id", quizId);
 
-                startActivity(intent);
+                    startActivity(intent);
+
             }
         });
 
@@ -137,6 +138,8 @@ public class DetailActivity extends AppCompatActivity {
                 mapOfQuizes = HashMapSaver.getQuizHashMap("quizes", DetailActivity.this);
 
                 Quiz quiz = HashMapSaver.getQuizHashMap("quizes", DetailActivity.this).get(id);
+
+
 
                 quizDescription = quiz.getContent();
                 questionArrayList = quiz.getQuestions();
