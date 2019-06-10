@@ -1,7 +1,9 @@
 package pl.piotrdawidziuk.quizo2api.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,6 +48,7 @@ public class TakeQuizActivity extends AppCompatActivity {
     int pointsGained;
     int pointsMax;
     public static Map<String,Integer> mapOfPositions;
+    public static Map<String,Integer> mapOfPoints;
     private String quizId;
 
 
@@ -74,8 +78,12 @@ public class TakeQuizActivity extends AppCompatActivity {
                         getAnswers(questionNumber);
                         setQuestionImage(questionNumber);
                         progressBar.setProgress(questionNumber);
+                        mapOfPositions.put(quizId,questionNumber);
+                        saveHashMap("map",mapOfPositions);
                         if (AnswersAdapter.RIGHT_ANSWER_IS_SELECTED){
                             pointsGained++;
+                            mapOfPoints.put(quizId,pointsGained);
+                            saveHashMap("map2",mapOfPoints);
                             AnswersAdapter.RIGHT_ANSWER_IS_SELECTED = false;
                         }
 
@@ -83,10 +91,14 @@ public class TakeQuizActivity extends AppCompatActivity {
                         Intent intent = new Intent(TakeQuizActivity.this, QuizFinishedActivity.class);
                         if (AnswersAdapter.RIGHT_ANSWER_IS_SELECTED){
                             pointsGained++;
+                            mapOfPoints.put(quizId,pointsGained);
+                            saveHashMap("map2",mapOfPoints);
                             AnswersAdapter.RIGHT_ANSWER_IS_SELECTED = false;
                         }
+
                         intent.putExtra("point_gained",pointsGained);
                         intent.putExtra("points_max",pointsMax);
+                        intent.putExtra("quiz_id",quizId);
 
                         startActivity(intent);
                     }
@@ -102,16 +114,54 @@ public class TakeQuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_take_quiz);
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
-        mapOfPositions = new HashMap<>();
+
         Intent intent = getIntent();
 
         quizId = intent.getStringExtra("id");
 
+        if (getHashMap("map")==null) {
+            mapOfPositions = new HashMap<>();
+            saveHashMap("map",mapOfPositions);
+        } else {
+            mapOfPositions = getHashMap("map");
+        }
+
+        if (getHashMap("map2")==null) {
+            mapOfPoints = new HashMap<>();
+            saveHashMap("map2",mapOfPoints);
+
+        } else {
+            mapOfPoints = getHashMap("map2");
+        }
+
+
+        if (getHashMap("map").get(quizId) == null){
+            mapOfPositions.put(quizId,0);
+            saveHashMap("map", mapOfPositions);
+            Toast.makeText(this, "ojej null", Toast.LENGTH_SHORT).show();
+        } else {
+            questionNumber = getHashMap("map").get(quizId);
+        }
+
+        if (getHashMap("map2").get(quizId) == null){
+            mapOfPoints.put(quizId,0);
+            saveHashMap("map2", mapOfPoints);
+        } else {
+            pointsGained = getHashMap("map2").get(quizId);
+        }
+
+
+//        if (mapOfPositions.get(quizId)==null){
+//            Toast.makeText(this, "ojej, null", Toast.LENGTH_SHORT).show();
+//            mapOfPositions.put(quizId,0);
+//        }
+
 
         mTextMessage = findViewById(R.id.message);
         questionImage = findViewById(R.id.take_quiz_question_image);
-        questionNumber = 0;
+        //questionNumber = mapOfPositions.get(quizId);
         progressBar = findViewById(R.id.simpleProgressBar);
+        progressBar.setProgress(questionNumber);
 
         list = intent
                 .getParcelableArrayListExtra("questions");
@@ -119,18 +169,17 @@ public class TakeQuizActivity extends AppCompatActivity {
         imageUrl = "";
 
 
-       questionTest += list.get(0).getText();
+       questionTest += list.get(getHashMap("map").get(quizId)).getText();
 
-       setQuestionImage(0);
+       setQuestionImage(getHashMap("map").get(quizId));
 
 
         mTextMessage.setText(questionTest);
         progressBar.setMax(list.size());
-        pointsGained = 0;
         pointsMax = list.size();
 
 
-        getAnswers(0);
+        getAnswers(getHashMap("map").get(quizId));
 
 
 
@@ -157,6 +206,27 @@ public class TakeQuizActivity extends AppCompatActivity {
         recyclerView.setAdapter(answersAdapter);
         answersAdapter = new AnswersAdapter (TakeQuizActivity.this, list.get(questionNumber).getAnswers());
         recyclerView.setAdapter(answersAdapter);
+    }
+
+
+
+    public void saveHashMap(String key , Object obj) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(obj);
+        editor.putString(key,json);
+        editor.apply();     // This line is IMPORTANT !!!
+    }
+
+
+    public HashMap<String,Integer> getHashMap(String key) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        Gson gson = new Gson();
+        String json = prefs.getString(key,"");
+        java.lang.reflect.Type type = new TypeToken<HashMap<String,Integer>>(){}.getType();
+        HashMap<String,Integer> obj = gson.fromJson(json, type);
+        return obj;
     }
 
 
