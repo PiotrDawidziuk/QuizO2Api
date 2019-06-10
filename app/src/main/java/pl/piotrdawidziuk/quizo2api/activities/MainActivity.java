@@ -92,6 +92,6 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
         detailIntent.putExtra(EXTRA_URL,clickedItem.getMainPhoto().getUrl());
         startActivity(detailIntent);
 
-        Toast.makeText(this, "POSITION: " + position, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "POSITION: " + position, Toast.LENGTH_SHORT).show();
     }
 }

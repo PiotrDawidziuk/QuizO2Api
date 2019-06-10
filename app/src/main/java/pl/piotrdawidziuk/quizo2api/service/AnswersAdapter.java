@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -21,6 +23,7 @@ public class AnswersAdapter  extends RecyclerView.Adapter<AnswersAdapter.ViewHol
     private List<Answer> mData;
     private LayoutInflater mInflater;
     private AnswersAdapter.ItemClickListener mClickListener;
+    private int lastSelectedPosition = -1;
 
     // data is passed into the constructor
     public AnswersAdapter(Context context, List<Answer> data) {
@@ -55,6 +58,8 @@ public class AnswersAdapter  extends RecyclerView.Adapter<AnswersAdapter.ViewHol
                 .fitCenter()
                 .into(holder.imageView);
 
+        holder.checkBox.setChecked(lastSelectedPosition == position);
+
     }
 
     // total number of rows
@@ -68,13 +73,22 @@ public class AnswersAdapter  extends RecyclerView.Adapter<AnswersAdapter.ViewHol
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         ImageView imageView;
+        CheckBox checkBox;
 
 
-        ViewHolder(View itemView) {
+        ViewHolder(final View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.answer_text_view);
             imageView = itemView.findViewById(R.id.answer_image);
-
+            checkBox = itemView.findViewById(R.id.answer_list_checkbox);
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    lastSelectedPosition = getAdapterPosition();
+                    notifyDataSetChanged();
+                    Toast.makeText(itemView.getContext(), "CLICK "+getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
