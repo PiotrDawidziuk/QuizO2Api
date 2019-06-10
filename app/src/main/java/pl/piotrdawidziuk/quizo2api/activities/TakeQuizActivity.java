@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class TakeQuizActivity extends AppCompatActivity {
     private AnswersAdapter answersAdapter;
     ArrayList<Question> list;
     int questionNumber;
+    ProgressBar progressBar;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,6 +50,7 @@ public class TakeQuizActivity extends AppCompatActivity {
                         questionNumber--;
                         mTextMessage.setText(list.get(questionNumber).getText());
                         getAnswers(questionNumber);
+                        progressBar.setProgress(questionNumber);
                     }
                     return true;
                 case R.id.navigation_dashboard:
@@ -58,6 +61,7 @@ public class TakeQuizActivity extends AppCompatActivity {
                         questionNumber++;
                         mTextMessage.setText(list.get(questionNumber).getText());
                         getAnswers(questionNumber);
+                        progressBar.setProgress(questionNumber);
                     }
                     return true;
             }
@@ -77,6 +81,7 @@ public class TakeQuizActivity extends AppCompatActivity {
         mTextMessage = findViewById(R.id.message);
         questionImage = findViewById(R.id.take_quiz_question_image);
         questionNumber = 0;
+        progressBar = findViewById(R.id.simpleProgressBar);
 
         list = intent
                 .getParcelableArrayListExtra("questions");
@@ -94,6 +99,8 @@ public class TakeQuizActivity extends AppCompatActivity {
                 .fitCenter()
                 .into(questionImage);
         mTextMessage.setText(questionTest);
+        progressBar.setMax(list.size());
+
 
         getAnswers(0);
 

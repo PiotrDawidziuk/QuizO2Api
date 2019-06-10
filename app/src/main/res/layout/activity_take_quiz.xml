@@ -8,6 +8,15 @@
     tools:context=".activities.TakeQuizActivity"
     android:padding="@dimen/layout_padding_large">
 
+    <ProgressBar
+        android:id="@+id/simpleProgressBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
     <TextView
         android:id="@+id/message"
         android:layout_width="wrap_content"
@@ -17,7 +26,8 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/title_home"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/simpleProgressBar"
+        />
 
     <ImageView
         android:id="@+id/take_quiz_question_image"
