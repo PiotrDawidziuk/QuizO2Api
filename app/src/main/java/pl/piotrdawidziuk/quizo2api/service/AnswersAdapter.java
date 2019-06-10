@@ -2,13 +2,13 @@ package pl.piotrdawidziuk.quizo2api.service;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -24,6 +24,7 @@ public class AnswersAdapter  extends RecyclerView.Adapter<AnswersAdapter.ViewHol
     private LayoutInflater mInflater;
     private AnswersAdapter.ItemClickListener mClickListener;
     private int lastSelectedPosition = -1;
+    public static boolean RIGHT_ANSWER_IS_SELECTED = false;
 
     // data is passed into the constructor
     public AnswersAdapter(Context context, List<Answer> data) {
@@ -60,6 +61,18 @@ public class AnswersAdapter  extends RecyclerView.Adapter<AnswersAdapter.ViewHol
 
         holder.checkBox.setChecked(lastSelectedPosition == position);
 
+        if(holder.checkBox.isChecked()){
+            if (mData.get(position).getIsCorrect()!=null){
+                Log.i("IS CORRECT???","YES!");
+                RIGHT_ANSWER_IS_SELECTED = true;
+            }
+        }
+        if (holder.checkBox.isChecked()){
+            if (mData.get(position).getIsCorrect()==null){
+                RIGHT_ANSWER_IS_SELECTED = false;
+            }
+        }
+
     }
 
     // total number of rows
@@ -86,7 +99,6 @@ public class AnswersAdapter  extends RecyclerView.Adapter<AnswersAdapter.ViewHol
                 public void onClick(View view) {
                     lastSelectedPosition = getAdapterPosition();
                     notifyDataSetChanged();
-                    Toast.makeText(itemView.getContext(), "CLICK "+getAdapterPosition(), Toast.LENGTH_SHORT).show();
                 }
             });
 

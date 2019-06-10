@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -60,6 +61,7 @@ public class TakeQuizActivity extends AppCompatActivity {
                 case R.id.navigation_dashboard:
                     mTextMessage.setText(R.string.title_dashboard);
                     return true;
+
                 case R.id.navigation_notifications:
                     if (questionNumber<list.size()-1) {
                         questionNumber++;
@@ -67,10 +69,18 @@ public class TakeQuizActivity extends AppCompatActivity {
                         getAnswers(questionNumber);
                         setQuestionImage(questionNumber);
                         progressBar.setProgress(questionNumber);
+                        if (AnswersAdapter.RIGHT_ANSWER_IS_SELECTED){
+                            pointsGained++;
+                            AnswersAdapter.RIGHT_ANSWER_IS_SELECTED = false;
+                        }
+
                     } else {
                         Intent intent = new Intent(TakeQuizActivity.this, QuizFinishedActivity.class);
+                        if (AnswersAdapter.RIGHT_ANSWER_IS_SELECTED){
+                            pointsGained++;
+                            AnswersAdapter.RIGHT_ANSWER_IS_SELECTED = false;
+                        }
                         intent.putExtra("point_gained",pointsGained);
-
                         intent.putExtra("points_max",pointsMax);
 
                         startActivity(intent);
