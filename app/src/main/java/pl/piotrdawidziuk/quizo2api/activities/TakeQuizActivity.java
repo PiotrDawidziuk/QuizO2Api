@@ -39,6 +39,8 @@ public class TakeQuizActivity extends AppCompatActivity {
     int questionNumber;
     ProgressBar progressBar;
     String imageUrl;
+    int pointsGained;
+    int pointsMax;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -64,9 +66,14 @@ public class TakeQuizActivity extends AppCompatActivity {
                         mTextMessage.setText(list.get(questionNumber).getText());
                         getAnswers(questionNumber);
                         setQuestionImage(questionNumber);
-
-
                         progressBar.setProgress(questionNumber);
+                    } else {
+                        Intent intent = new Intent(TakeQuizActivity.this, QuizFinishedActivity.class);
+                        intent.putExtra("point_gained",pointsGained);
+
+                        intent.putExtra("points_max",pointsMax);
+
+                        startActivity(intent);
                     }
                     return true;
             }
@@ -100,6 +107,8 @@ public class TakeQuizActivity extends AppCompatActivity {
 
         mTextMessage.setText(questionTest);
         progressBar.setMax(list.size());
+        pointsGained = 0;
+        pointsMax = list.size();
 
 
         getAnswers(0);
