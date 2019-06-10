@@ -34,6 +34,8 @@ public class TakeQuizActivity extends AppCompatActivity {
     //private List<Question> questions;
     private RecyclerView recyclerView;
     private AnswersAdapter answersAdapter;
+    ArrayList<Question> list;
+    int questionNumber;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -42,13 +44,21 @@ public class TakeQuizActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    if (questionNumber>0) {
+                        questionNumber--;
+                        mTextMessage.setText(list.get(questionNumber).getText());
+                        getAnswers(questionNumber);
+                    }
                     return true;
                 case R.id.navigation_dashboard:
                     mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    if (questionNumber<list.size()-1) {
+                        questionNumber++;
+                        mTextMessage.setText(list.get(questionNumber).getText());
+                        getAnswers(questionNumber);
+                    }
                     return true;
             }
             return false;
@@ -66,14 +76,10 @@ public class TakeQuizActivity extends AppCompatActivity {
 
         mTextMessage = findViewById(R.id.message);
         questionImage = findViewById(R.id.take_quiz_question_image);
+        questionNumber = 0;
 
-        //mTextMessage.setText(intent.getStringExtra("test"));
-        String questionsString ="a";
-
-        ArrayList<Question> list = intent
+        list = intent
                 .getParcelableArrayListExtra("questions");
-
-//        Toast.makeText(this, list.get(1).getText(), Toast.LENGTH_LONG).show();
         String questionTest = "";
 
         String imageUrl = "";
@@ -89,16 +95,21 @@ public class TakeQuizActivity extends AppCompatActivity {
                 .into(questionImage);
         mTextMessage.setText(questionTest);
 
-        recyclerView=findViewById(R.id.take_quiz_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(answersAdapter);
-        answersAdapter = new AnswersAdapter (TakeQuizActivity.this, list.get(0).getAnswers());
-        recyclerView.setAdapter(answersAdapter);
+        getAnswers(0);
 
 
 
 //        mTextMessage.setText(questions.get(0).getText());
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
+
+    private void getAnswers(int questionNumber) {
+        recyclerView=findViewById(R.id.take_quiz_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(answersAdapter);
+        answersAdapter = new AnswersAdapter (TakeQuizActivity.this, list.get(questionNumber).getAnswers());
+        recyclerView.setAdapter(answersAdapter);
+    }
+
 
 }
