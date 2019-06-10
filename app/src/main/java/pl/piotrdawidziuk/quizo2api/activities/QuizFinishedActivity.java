@@ -65,6 +65,8 @@ public class QuizFinishedActivity extends AppCompatActivity {
                     mapOfPositions.put(quizId,0);
                     HashMapSaver.saveHashMap("map",mapOfPositions, QuizFinishedActivity.this);
                     HashMapSaver.saveHashMap("map2",mapOfPoints, QuizFinishedActivity.this);
+                    Intent intent = new Intent(QuizFinishedActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
         });
 

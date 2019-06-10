@@ -121,6 +121,34 @@ public class TakeQuizActivity extends AppCompatActivity {
 
         quizId = intent.getStringExtra("id");
 
+        checkHashMaps();
+
+        mTextMessage = findViewById(R.id.message);
+        questionImage = findViewById(R.id.take_quiz_question_image);
+        progressBar = findViewById(R.id.simpleProgressBar);
+        progressBar.setProgress(questionNumber);
+
+        list = intent
+                .getParcelableArrayListExtra("questions");
+        String questionTest = "";
+        imageUrl = "";
+
+
+       questionTest += list.get(HashMapSaver.getHashMap("map",this).get(quizId)).getText();
+
+       setQuestionImage(HashMapSaver.getHashMap("map",this).get(quizId));
+
+        mTextMessage.setText(questionTest);
+        progressBar.setMax(list.size());
+        pointsMax = list.size();
+
+        getAnswers(HashMapSaver.getHashMap("map",this).get(quizId));
+
+        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    private void checkHashMaps() {
+
         if (HashMapSaver.getHashMap("map",this)==null) {
             mapOfPositions = new HashMap<>();
             HashMapSaver.saveHashMap("map",mapOfPositions,this);
@@ -151,42 +179,6 @@ public class TakeQuizActivity extends AppCompatActivity {
         } else {
             pointsGained = HashMapSaver.getHashMap("map2",this).get(quizId);
         }
-
-
-//        if (mapOfPositions.get(quizId)==null){
-//            Toast.makeText(this, "ojej, null", Toast.LENGTH_SHORT).show();
-//            mapOfPositions.put(quizId,0);
-//        }
-
-
-        mTextMessage = findViewById(R.id.message);
-        questionImage = findViewById(R.id.take_quiz_question_image);
-        //questionNumber = mapOfPositions.get(quizId);
-        progressBar = findViewById(R.id.simpleProgressBar);
-        progressBar.setProgress(questionNumber);
-
-        list = intent
-                .getParcelableArrayListExtra("questions");
-        String questionTest = "";
-        imageUrl = "";
-
-
-       questionTest += list.get(HashMapSaver.getHashMap("map",this).get(quizId)).getText();
-
-       setQuestionImage(HashMapSaver.getHashMap("map",this).get(quizId));
-
-
-        mTextMessage.setText(questionTest);
-        progressBar.setMax(list.size());
-        pointsMax = list.size();
-
-
-        getAnswers(HashMapSaver.getHashMap("map",this).get(quizId));
-
-
-
-//        mTextMessage.setText(questions.get(0).getText());
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     private void setQuestionImage(int questionNumber) {
@@ -212,24 +204,7 @@ public class TakeQuizActivity extends AppCompatActivity {
 
 
 
-//    public void saveHashMap(String key , Object obj) {
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//        SharedPreferences.Editor editor = prefs.edit();
-//        Gson gson = new Gson();
-//        String json = gson.toJson(obj);
-//        editor.putString(key,json);
-//        editor.apply();     // This line is IMPORTANT !!!
-//    }
-//
-//
-//    public HashMap<String,Integer> getHashMap(String key) {
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//        Gson gson = new Gson();
-//        String json = prefs.getString(key,"");
-//        java.lang.reflect.Type type = new TypeToken<HashMap<String,Integer>>(){}.getType();
-//        HashMap<String,Integer> obj = gson.fromJson(json, type);
-//        return obj;
-//    }
+
 
 
 }

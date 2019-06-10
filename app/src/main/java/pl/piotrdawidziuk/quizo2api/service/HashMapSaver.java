@@ -3,11 +3,13 @@ package pl.piotrdawidziuk.quizo2api.service;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class HashMapSaver {
 
@@ -17,7 +19,7 @@ public class HashMapSaver {
         Gson gson = new Gson();
         String json = gson.toJson(obj);
         editor.putString(key,json);
-        editor.apply();     // This line is IMPORTANT !!!
+        editor.apply();
     }
 
 
@@ -29,4 +31,5 @@ public class HashMapSaver {
         HashMap<String,Integer> obj = gson.fromJson(json, type);
         return obj;
     }
+
 }
