@@ -8,5 +8,6 @@
 
     <string name="quiz_start_text">Begin Quiz</string>
     <string name="go_to_main_menu_text">Back to Quiz List</string>
+    <string name="restart_points_text">Restart result</string>
 
 </resources>

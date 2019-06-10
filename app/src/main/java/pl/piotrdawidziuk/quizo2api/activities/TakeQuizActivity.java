@@ -1,5 +1,6 @@
 package pl.piotrdawidziuk.quizo2api.activities;
 
+import android.arch.core.executor.TaskExecutor;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import pl.piotrdawidziuk.quizo2api.R;
 import pl.piotrdawidziuk.quizo2api.model.Answer;
 import pl.piotrdawidziuk.quizo2api.model.Question;
 import pl.piotrdawidziuk.quizo2api.service.AnswersAdapter;
+import pl.piotrdawidziuk.quizo2api.service.HashMapSaver;
 import pl.piotrdawidziuk.quizo2api.service.QuizItemAdapter;
 import pl.piotrdawidziuk.quizo2api.service.ResizeImage;
 
@@ -47,8 +49,8 @@ public class TakeQuizActivity extends AppCompatActivity {
     String imageUrl;
     int pointsGained;
     int pointsMax;
-    public static Map<String,Integer> mapOfPositions;
-    public static Map<String,Integer> mapOfPoints;
+    public  Map<String,Integer> mapOfPositions;
+    public  Map<String,Integer> mapOfPoints;
     private String quizId;
 
 
@@ -79,11 +81,11 @@ public class TakeQuizActivity extends AppCompatActivity {
                         setQuestionImage(questionNumber);
                         progressBar.setProgress(questionNumber);
                         mapOfPositions.put(quizId,questionNumber);
-                        saveHashMap("map",mapOfPositions);
+                        HashMapSaver.saveHashMap("map",mapOfPositions,TakeQuizActivity.this);
                         if (AnswersAdapter.RIGHT_ANSWER_IS_SELECTED){
                             pointsGained++;
                             mapOfPoints.put(quizId,pointsGained);
-                            saveHashMap("map2",mapOfPoints);
+                            HashMapSaver.saveHashMap("map2",mapOfPoints,TakeQuizActivity.this);
                             AnswersAdapter.RIGHT_ANSWER_IS_SELECTED = false;
                         }
 
@@ -92,7 +94,7 @@ public class TakeQuizActivity extends AppCompatActivity {
                         if (AnswersAdapter.RIGHT_ANSWER_IS_SELECTED){
                             pointsGained++;
                             mapOfPoints.put(quizId,pointsGained);
-                            saveHashMap("map2",mapOfPoints);
+                            HashMapSaver.saveHashMap("map2",mapOfPoints, TakeQuizActivity.this);
                             AnswersAdapter.RIGHT_ANSWER_IS_SELECTED = false;
                         }
 
@@ -119,35 +121,35 @@ public class TakeQuizActivity extends AppCompatActivity {
 
         quizId = intent.getStringExtra("id");
 
-        if (getHashMap("map")==null) {
+        if (HashMapSaver.getHashMap("map",this)==null) {
             mapOfPositions = new HashMap<>();
-            saveHashMap("map",mapOfPositions);
+            HashMapSaver.saveHashMap("map",mapOfPositions,this);
         } else {
-            mapOfPositions = getHashMap("map");
+            mapOfPositions = HashMapSaver.getHashMap("map",this);
         }
 
-        if (getHashMap("map2")==null) {
+        if (HashMapSaver.getHashMap("map2",this)==null) {
             mapOfPoints = new HashMap<>();
-            saveHashMap("map2",mapOfPoints);
+            HashMapSaver.saveHashMap("map2",mapOfPoints,this);
 
         } else {
-            mapOfPoints = getHashMap("map2");
+            mapOfPoints = HashMapSaver.getHashMap("map2",this);
         }
 
 
-        if (getHashMap("map").get(quizId) == null){
+        if (HashMapSaver.getHashMap("map",this).get(quizId) == null){
             mapOfPositions.put(quizId,0);
-            saveHashMap("map", mapOfPositions);
+            HashMapSaver.saveHashMap("map", mapOfPositions,this);
             Toast.makeText(this, "ojej null", Toast.LENGTH_SHORT).show();
         } else {
-            questionNumber = getHashMap("map").get(quizId);
+            questionNumber = HashMapSaver.getHashMap("map",this).get(quizId);
         }
 
-        if (getHashMap("map2").get(quizId) == null){
+        if (HashMapSaver.getHashMap("map2",this).get(quizId) == null){
             mapOfPoints.put(quizId,0);
-            saveHashMap("map2", mapOfPoints);
+            HashMapSaver.saveHashMap("map2", mapOfPoints,this);
         } else {
-            pointsGained = getHashMap("map2").get(quizId);
+            pointsGained = HashMapSaver.getHashMap("map2",this).get(quizId);
         }
 
 
@@ -169,9 +171,9 @@ public class TakeQuizActivity extends AppCompatActivity {
         imageUrl = "";
 
 
-       questionTest += list.get(getHashMap("map").get(quizId)).getText();
+       questionTest += list.get(HashMapSaver.getHashMap("map",this).get(quizId)).getText();
 
-       setQuestionImage(getHashMap("map").get(quizId));
+       setQuestionImage(HashMapSaver.getHashMap("map",this).get(quizId));
 
 
         mTextMessage.setText(questionTest);
@@ -179,7 +181,7 @@ public class TakeQuizActivity extends AppCompatActivity {
         pointsMax = list.size();
 
 
-        getAnswers(getHashMap("map").get(quizId));
+        getAnswers(HashMapSaver.getHashMap("map",this).get(quizId));
 
 
 
@@ -210,24 +212,24 @@ public class TakeQuizActivity extends AppCompatActivity {
 
 
 
-    public void saveHashMap(String key , Object obj) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = prefs.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(obj);
-        editor.putString(key,json);
-        editor.apply();     // This line is IMPORTANT !!!
-    }
-
-
-    public HashMap<String,Integer> getHashMap(String key) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Gson gson = new Gson();
-        String json = prefs.getString(key,"");
-        java.lang.reflect.Type type = new TypeToken<HashMap<String,Integer>>(){}.getType();
-        HashMap<String,Integer> obj = gson.fromJson(json, type);
-        return obj;
-    }
+//    public void saveHashMap(String key , Object obj) {
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        SharedPreferences.Editor editor = prefs.edit();
+//        Gson gson = new Gson();
+//        String json = gson.toJson(obj);
+//        editor.putString(key,json);
+//        editor.apply();     // This line is IMPORTANT !!!
+//    }
+//
+//
+//    public HashMap<String,Integer> getHashMap(String key) {
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        Gson gson = new Gson();
+//        String json = prefs.getString(key,"");
+//        java.lang.reflect.Type type = new TypeToken<HashMap<String,Integer>>(){}.getType();
+//        HashMap<String,Integer> obj = gson.fromJson(json, type);
+//        return obj;
+//    }
 
 
 }
