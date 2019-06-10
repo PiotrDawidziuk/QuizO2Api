@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.TakeQuizActivity"
-    android:padding="@dimen/layout_padding_large">
+
+    >
 
     <ProgressBar
         android:id="@+id/simpleProgressBar"
@@ -43,6 +44,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/take_quiz_question_image"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/nav_view"
+        app:layout_constraintEnd_toEndOf="parent"
         >
     </android.support.v7.widget.RecyclerView>
 

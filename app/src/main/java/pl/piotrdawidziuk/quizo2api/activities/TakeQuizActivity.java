@@ -38,6 +38,7 @@ public class TakeQuizActivity extends AppCompatActivity {
     ArrayList<Question> list;
     int questionNumber;
     ProgressBar progressBar;
+    String imageUrl;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -50,6 +51,7 @@ public class TakeQuizActivity extends AppCompatActivity {
                         questionNumber--;
                         mTextMessage.setText(list.get(questionNumber).getText());
                         getAnswers(questionNumber);
+                        setQuestionImage(questionNumber);
                         progressBar.setProgress(questionNumber);
                     }
                     return true;
@@ -61,6 +63,9 @@ public class TakeQuizActivity extends AppCompatActivity {
                         questionNumber++;
                         mTextMessage.setText(list.get(questionNumber).getText());
                         getAnswers(questionNumber);
+                        setQuestionImage(questionNumber);
+
+
                         progressBar.setProgress(questionNumber);
                     }
                     return true;
@@ -86,18 +91,13 @@ public class TakeQuizActivity extends AppCompatActivity {
         list = intent
                 .getParcelableArrayListExtra("questions");
         String questionTest = "";
-
-        String imageUrl = "";
+        imageUrl = "";
 
        questionTest += list.get(0).getText();
-       imageUrl = list.get(0).getImage().getUrl();
 
-        Glide.with(TakeQuizActivity.this)
-                .load(imageUrl).
-                apply(new RequestOptions()
-                .override(ResizeImage.getWidth(),ResizeImage.getHeight()))
-                .fitCenter()
-                .into(questionImage);
+       setQuestionImage(0);
+
+
         mTextMessage.setText(questionTest);
         progressBar.setMax(list.size());
 
@@ -108,6 +108,19 @@ public class TakeQuizActivity extends AppCompatActivity {
 
 //        mTextMessage.setText(questions.get(0).getText());
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    private void setQuestionImage(int questionNumber) {
+
+        imageUrl = list.get(questionNumber).getImage().getUrl();
+
+        Glide.with(TakeQuizActivity.this)
+                .load(imageUrl).
+                apply(new RequestOptions()
+                        .override(ResizeImage.getWidth(),ResizeImage.getHeight()))
+                .fitCenter()
+                .into(questionImage);
+
     }
 
     private void getAnswers(int questionNumber) {

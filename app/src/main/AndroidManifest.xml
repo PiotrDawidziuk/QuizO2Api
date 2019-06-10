@@ -11,9 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.QuizFinishedActivity"></activity>
         <activity
             android:name=".activities.TakeQuizActivity"
-            android:label="@string/title_activity_take_quiz"></activity>
+            android:label="@string/title_activity_take_quiz" />
         <activity android:name=".activities.DetailActivity" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>

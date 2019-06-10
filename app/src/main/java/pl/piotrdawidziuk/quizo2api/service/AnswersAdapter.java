@@ -51,7 +51,7 @@ public class AnswersAdapter  extends RecyclerView.Adapter<AnswersAdapter.ViewHol
         Glide.with(holder.imageView.getContext())
                 .load(url)
                 .apply(new RequestOptions()
-                        .override(ResizeImage.getWidth(),ResizeImage.getHeight()))
+                        .override(ResizeImage.getWidth()/2,ResizeImage.getHeight()/2))
                 .fitCenter()
                 .into(holder.imageView);
 
