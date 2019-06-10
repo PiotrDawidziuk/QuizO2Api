@@ -7,9 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -19,9 +22,11 @@ import java.util.List;
 import pl.piotrdawidziuk.quizo2api.R;
 import pl.piotrdawidziuk.quizo2api.model.Answer;
 import pl.piotrdawidziuk.quizo2api.model.Question;
+import pl.piotrdawidziuk.quizo2api.service.ResizeImage;
 
 public class TakeQuizActivity extends AppCompatActivity {
     private TextView mTextMessage;
+    private ImageView questionImage;
     //private List<Question> questions;
 
 
@@ -55,6 +60,8 @@ public class TakeQuizActivity extends AppCompatActivity {
 
 
         mTextMessage = findViewById(R.id.message);
+        questionImage = findViewById(R.id.take_quiz_question_image);
+
         //mTextMessage.setText(intent.getStringExtra("test"));
         String questionsString ="a";
 
@@ -62,16 +69,19 @@ public class TakeQuizActivity extends AppCompatActivity {
                 .getParcelableArrayListExtra("questions");
 
 //        Toast.makeText(this, list.get(1).getText(), Toast.LENGTH_LONG).show();
-
         String questionTest = "";
 
+        String imageUrl = "";
+
        questionTest += list.get(0).getAnswers().get(0).getText();
+       imageUrl = list.get(0).getImage().getUrl();
 
-
-//        for (int i = 0; i < list.size(); i++) {
-//            questionTest += list.get(i).getText()+"\n\n";
-//        }
-
+        Glide.with(TakeQuizActivity.this)
+                .load(imageUrl).
+                apply(new RequestOptions()
+                .override(ResizeImage.getWidth(),ResizeImage.getHeight()))
+                .fitCenter()
+                .into(questionImage);
         mTextMessage.setText(questionTest);
 
 //        mTextMessage.setText(questions.get(0).getText());
