@@ -28,5 +28,12 @@
         app:layout_constraintStart_toStartOf="parent"
         android:textSize="@dimen/text_size_xl_large"
         />
+    <Button
+        android:id="@+id/quiz_finished_back_to_main_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/quiz_finished_percentage"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/go_to_main_menu_text"/>
 
 </android.support.constraint.ConstraintLayout>

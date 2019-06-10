@@ -21,7 +21,9 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import pl.piotrdawidziuk.quizo2api.R;
 import pl.piotrdawidziuk.quizo2api.model.Answer;
@@ -42,6 +44,9 @@ public class TakeQuizActivity extends AppCompatActivity {
     String imageUrl;
     int pointsGained;
     int pointsMax;
+    public static Map<String,Integer> mapOfPositions;
+    private String quizId;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -97,7 +102,10 @@ public class TakeQuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_take_quiz);
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
+        mapOfPositions = new HashMap<>();
         Intent intent = getIntent();
+
+        quizId = intent.getStringExtra("id");
 
 
         mTextMessage = findViewById(R.id.message);
@@ -109,6 +117,7 @@ public class TakeQuizActivity extends AppCompatActivity {
                 .getParcelableArrayListExtra("questions");
         String questionTest = "";
         imageUrl = "";
+
 
        questionTest += list.get(0).getText();
 
