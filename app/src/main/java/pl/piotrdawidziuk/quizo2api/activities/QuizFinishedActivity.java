@@ -11,6 +11,7 @@ public class QuizFinishedActivity extends AppCompatActivity {
 
     TextView pointsMaxTextView;
     TextView pointsGainedTextView;
+    TextView percetage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +19,7 @@ public class QuizFinishedActivity extends AppCompatActivity {
 
         pointsMaxTextView = findViewById(R.id.quiz_finished_points_max);
         pointsGainedTextView = findViewById(R.id.quiz_finished_points_gained);
+        percetage = findViewById(R.id.quiz_finished_percentage);
 
         Intent intent = getIntent();
         int pointsMax = 0;
@@ -27,7 +29,9 @@ public class QuizFinishedActivity extends AppCompatActivity {
 
         pointsMaxTextView.setText("Max points: "+pointsMax);
         pointsGainedTextView.setText("You got: "+pointsGained);
-
+        percetage.setText(pointsGained*100/pointsMax+"%");
 
     }
+
+
 }

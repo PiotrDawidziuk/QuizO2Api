@@ -63,7 +63,6 @@ public class AnswersAdapter  extends RecyclerView.Adapter<AnswersAdapter.ViewHol
 
         if(holder.checkBox.isChecked()){
             if (mData.get(position).getIsCorrect()!=null){
-                Log.i("IS CORRECT???","YES!");
                 RIGHT_ANSWER_IS_SELECTED = true;
             }
         }
