@@ -42,11 +42,9 @@ public class QuizItemAdapter extends RecyclerView.Adapter<QuizItemAdapter.ViewHo
 
         QuizListItem quizItem = mData.get(position);
 
-        String id =quizItem.getId();
         String title = quizItem.getTitle();
         MainPhoto mainPhoto = quizItem.getMainPhoto();
 
-        holder.idTextView.setText(id);
         holder.titleTextView.setText(title);
         Glide.with(holder.imageView.getContext())
                 .load(mainPhoto.getUrl())
@@ -66,14 +64,12 @@ public class QuizItemAdapter extends RecyclerView.Adapter<QuizItemAdapter.ViewHo
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView idTextView;
         TextView titleTextView;
         ImageView imageView;
 
 
         ViewHolder(View itemView) {
             super(itemView);
-            idTextView = itemView.findViewById(R.id.text_view_id);
             titleTextView = itemView.findViewById(R.id.text_view_title);
             imageView = itemView.findViewById(R.id.quiz_list_item_image);
 

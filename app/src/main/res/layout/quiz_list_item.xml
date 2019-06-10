@@ -19,15 +19,10 @@
             android:src="@mipmap/ic_launcher"/>
 
         <TextView
-            android:id="@+id/text_view_id"
+            android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/text_view_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
