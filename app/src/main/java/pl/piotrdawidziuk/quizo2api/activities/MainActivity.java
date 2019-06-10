@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
             @Override
             public void onResponse(Call<QuizList> call, Response<QuizList> response) {
                 if(!response.isSuccessful()){
-                    Toast.makeText(MainActivity.this,"Oops! Something went wrong!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"Oops!!! Something went wrong!",Toast.LENGTH_SHORT).show();
                 }
                 QuizList quizList = response.body();
                 quizes = quizList.getItems();

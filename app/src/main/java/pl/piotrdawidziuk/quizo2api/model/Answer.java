@@ -8,13 +8,34 @@ public class Answer implements Parcelable {
     Integer order;
     String text;
     Integer isCorrect;
+    Image image;
 
-    public Answer(Integer order, String text, Integer isCorrect) {
+    public Answer(Integer order, String text, Integer isCorrect, Image image) {
         this.order = order;
         this.text = text;
         this.isCorrect = isCorrect;
+        this.image = image;
     }
 
+    public Integer getOrder() {
+        return order;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public Integer getIsCorrect() {
+        return isCorrect;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public static Creator<Answer> getCREATOR() {
+        return CREATOR;
+    }
 
     protected Answer(Parcel in) {
         if (in.readByte() == 0) {
@@ -28,6 +49,7 @@ public class Answer implements Parcelable {
         } else {
             isCorrect = in.readInt();
         }
+        image = in.readParcelable(Image.class.getClassLoader());
     }
 
     public static final Creator<Answer> CREATOR = new Creator<Answer>() {
@@ -41,18 +63,6 @@ public class Answer implements Parcelable {
             return new Answer[size];
         }
     };
-
-    public Integer getOrder() {
-        return order;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public Integer getIsCorrect() {
-        return isCorrect;
-    }
 
     @Override
     public int describeContents() {
@@ -74,5 +84,6 @@ public class Answer implements Parcelable {
             parcel.writeByte((byte) 1);
             parcel.writeInt(isCorrect);
         }
+        parcel.writeParcelable(image, i);
     }
 }

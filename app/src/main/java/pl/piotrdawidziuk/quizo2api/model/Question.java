@@ -8,10 +8,12 @@ import java.util.ArrayList;
 public class Question implements Parcelable {
     String text;
     ArrayList<Answer> answers;
+    Image image;
 
-    public Question(String text, ArrayList<Answer> answers) {
+    public Question(String text, ArrayList<Answer> answers, Image image) {
         this.text = text;
         this.answers = answers;
+        this.image = image;
     }
 
     public String getText() {
@@ -22,6 +24,10 @@ public class Question implements Parcelable {
         return answers;
     }
 
+    public Image getImage() {
+        return image;
+    }
+
     public static Creator<Question> getCREATOR() {
         return CREATOR;
     }
@@ -29,6 +35,7 @@ public class Question implements Parcelable {
     protected Question(Parcel in) {
         text = in.readString();
         answers = in.createTypedArrayList(Answer.CREATOR);
+        image = in.readParcelable(Image.class.getClassLoader());
     }
 
     public static final Creator<Question> CREATOR = new Creator<Question>() {
@@ -52,5 +59,6 @@ public class Question implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(text);
         parcel.writeTypedList(answers);
+        parcel.writeParcelable(image, i);
     }
 }

@@ -11,11 +11,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import pl.piotrdawidziuk.quizo2api.R;
-import pl.piotrdawidziuk.quizo2api.activities.MainActivity;
 import pl.piotrdawidziuk.quizo2api.model.MainPhoto;
 import pl.piotrdawidziuk.quizo2api.model.QuizListItem;
 
