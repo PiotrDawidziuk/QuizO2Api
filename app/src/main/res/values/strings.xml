@@ -2,12 +2,15 @@
     <string name="app_name">QuizO2Api</string>
     <string name="title_activity_take_quiz">TakeQuiz</string>
 
-    <string name="title_home">Previous Question</string>
-    <string name="title_dashboard">NOTHING</string>
-    <string name="title_notifications">Next Question</string>
+    <string name="title_next">Poprzednie</string>
 
-    <string name="quiz_start_text">Begin Quiz</string>
-    <string name="go_to_main_menu_text">Back to Quiz List</string>
-    <string name="restart_points_text">Restart result</string>
+    <string name="title_previous">Następne</string>
+
+    <string name="quiz_start_text">Zacznij Quiz</string>
+    <string name="go_to_main_menu_text">Wróć do listy quizów</string>
+    <string name="restart_points_text">Resetuj wynik</string>
+
+    <string name="max_points">Maksymalne punkty:</string>
+    <string name="gained_points">Zdobyte punkty:</string>
 
 </resources>

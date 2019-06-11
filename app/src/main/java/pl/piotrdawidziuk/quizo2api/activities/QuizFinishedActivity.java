@@ -44,8 +44,8 @@ public class QuizFinishedActivity extends AppCompatActivity {
         quizId ="";
         pointsMax = intent.getIntExtra("points_max",0);
         pointsGained = intent.getIntExtra("point_gained",0);
-        pointsMaxTextView.setText("Max points: "+pointsMax);
-        pointsGainedTextView.setText("You got: "+pointsGained);
+        pointsMaxTextView.setText(getString(R.string.max_points)+" "+pointsMax);
+        pointsGainedTextView.setText(getString(R.string.gained_points)+" "+pointsGained);
         percetage.setText(pointsGained*100/pointsMax+"%");
         quizId = intent.getStringExtra("quiz_id");
 

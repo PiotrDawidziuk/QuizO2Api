@@ -48,7 +48,7 @@ public class TakeQuizActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.navigation_back:
                     if (questionNumber > 0) {
                         questionNumber--;
                         mTextMessage.setText(list.get(questionNumber).getText());
@@ -58,7 +58,7 @@ public class TakeQuizActivity extends AppCompatActivity {
                     }
                     return true;
 
-                case R.id.navigation_notifications:
+                case R.id.navigation_next:
                     if (questionNumber < list.size() - 1) {
                         questionNumber++;
                         mTextMessage.setText(list.get(questionNumber).getText());
