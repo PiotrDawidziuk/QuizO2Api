@@ -37,8 +37,8 @@ public class TakeQuizActivity extends AppCompatActivity {
     String imageUrl;
     int pointsGained;
     int pointsMax;
-    public  Map<String,Integer> mapOfPositions;
-    public  Map<String,Integer> mapOfPoints;
+    public Map<String, Integer> mapOfPositions;
+    public Map<String, Integer> mapOfPoints;
     private String quizId;
 
 
@@ -49,7 +49,7 @@ public class TakeQuizActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    if (questionNumber>0) {
+                    if (questionNumber > 0) {
                         questionNumber--;
                         mTextMessage.setText(list.get(questionNumber).getText());
                         getAnswers(questionNumber);
@@ -57,40 +57,37 @@ public class TakeQuizActivity extends AppCompatActivity {
                         progressBar.setProgress(questionNumber);
                     }
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
 
                 case R.id.navigation_notifications:
-                    if (questionNumber<list.size()-1) {
+                    if (questionNumber < list.size() - 1) {
                         questionNumber++;
                         mTextMessage.setText(list.get(questionNumber).getText());
                         getAnswers(questionNumber);
                         setQuestionImage(questionNumber);
                         progressBar.setProgress(questionNumber);
-                        mapOfPositions.put(quizId,questionNumber);
-                        HashMapSaver.saveHashMap("map",mapOfPositions,TakeQuizActivity.this);
-                        if (AnswersAdapter.RIGHT_ANSWER_IS_SELECTED){
+                        mapOfPositions.put(quizId, questionNumber);
+                        HashMapSaver.saveHashMap("map", mapOfPositions, TakeQuizActivity.this);
+                        if (AnswersAdapter.RIGHT_ANSWER_IS_SELECTED) {
                             pointsGained++;
-                            mapOfPoints.put(quizId,pointsGained);
-                            HashMapSaver.saveHashMap("map2",mapOfPoints,TakeQuizActivity.this);
+                            mapOfPoints.put(quizId, pointsGained);
+                            HashMapSaver.saveHashMap("map2", mapOfPoints, TakeQuizActivity.this);
                             AnswersAdapter.RIGHT_ANSWER_IS_SELECTED = false;
                         }
 
                     } else {
                         Intent intent = new Intent(TakeQuizActivity.this, QuizFinishedActivity.class);
-                        if (AnswersAdapter.RIGHT_ANSWER_IS_SELECTED){
+                        if (AnswersAdapter.RIGHT_ANSWER_IS_SELECTED) {
                             pointsGained++;
-                            mapOfPoints.put(quizId,pointsGained);
-                            HashMapSaver.saveHashMap("map2",mapOfPoints, TakeQuizActivity.this);
+                            mapOfPoints.put(quizId, pointsGained);
+                            HashMapSaver.saveHashMap("map2", mapOfPoints, TakeQuizActivity.this);
                             AnswersAdapter.RIGHT_ANSWER_IS_SELECTED = false;
                         }
 
-                        HashMapSaver.saveHashMap("map",mapOfPositions,TakeQuizActivity.this);
+                        HashMapSaver.saveHashMap("map", mapOfPositions, TakeQuizActivity.this);
 
-                        intent.putExtra("point_gained",pointsGained);
-                        intent.putExtra("points_max",pointsMax);
-                        intent.putExtra("quiz_id",quizId);
+                        intent.putExtra("point_gained", pointsGained);
+                        intent.putExtra("points_max", pointsMax);
+                        intent.putExtra("quiz_id", quizId);
 
                         startActivity(intent);
                     }
@@ -120,50 +117,50 @@ public class TakeQuizActivity extends AppCompatActivity {
         imageUrl = "";
 
 
-       questionTest += list.get(HashMapSaver.getHashMap("map",this).get(quizId)).getText();
+        questionTest += list.get(HashMapSaver.getHashMap("map", this).get(quizId)).getText();
 
-       setQuestionImage(HashMapSaver.getHashMap("map",this).get(quizId));
+        setQuestionImage(HashMapSaver.getHashMap("map", this).get(quizId));
 
         mTextMessage.setText(questionTest);
         progressBar.setMax(list.size());
         pointsMax = list.size();
 
-        getAnswers(HashMapSaver.getHashMap("map",this).get(quizId));
+        getAnswers(HashMapSaver.getHashMap("map", this).get(quizId));
 
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     private void checkHashMaps() {
 
-        if (HashMapSaver.getHashMap("map",this)==null) {
+        if (HashMapSaver.getHashMap("map", this) == null) {
             mapOfPositions = new HashMap<>();
-            HashMapSaver.saveHashMap("map",mapOfPositions,this);
+            HashMapSaver.saveHashMap("map", mapOfPositions, this);
         } else {
-            mapOfPositions = HashMapSaver.getHashMap("map",this);
+            mapOfPositions = HashMapSaver.getHashMap("map", this);
         }
 
-        if (HashMapSaver.getHashMap("map2",this)==null) {
+        if (HashMapSaver.getHashMap("map2", this) == null) {
             mapOfPoints = new HashMap<>();
-            HashMapSaver.saveHashMap("map2",mapOfPoints,this);
+            HashMapSaver.saveHashMap("map2", mapOfPoints, this);
 
         } else {
-            mapOfPoints = HashMapSaver.getHashMap("map2",this);
+            mapOfPoints = HashMapSaver.getHashMap("map2", this);
         }
 
 
-        if (HashMapSaver.getHashMap("map",this).get(quizId) == null){
-            mapOfPositions.put(quizId,0);
-            HashMapSaver.saveHashMap("map", mapOfPositions,this);
+        if (HashMapSaver.getHashMap("map", this).get(quizId) == null) {
+            mapOfPositions.put(quizId, 0);
+            HashMapSaver.saveHashMap("map", mapOfPositions, this);
             Toast.makeText(this, "ojej null", Toast.LENGTH_SHORT).show();
         } else {
-            questionNumber = HashMapSaver.getHashMap("map",this).get(quizId);
+            questionNumber = HashMapSaver.getHashMap("map", this).get(quizId);
         }
 
-        if (HashMapSaver.getHashMap("map2",this).get(quizId) == null){
-            mapOfPoints.put(quizId,0);
-            HashMapSaver.saveHashMap("map2", mapOfPoints,this);
+        if (HashMapSaver.getHashMap("map2", this).get(quizId) == null) {
+            mapOfPoints.put(quizId, 0);
+            HashMapSaver.saveHashMap("map2", mapOfPoints, this);
         } else {
-            pointsGained = HashMapSaver.getHashMap("map2",this).get(quizId);
+            pointsGained = HashMapSaver.getHashMap("map2", this).get(quizId);
         }
     }
 
@@ -174,24 +171,20 @@ public class TakeQuizActivity extends AppCompatActivity {
         Glide.with(TakeQuizActivity.this)
                 .load(imageUrl).
                 apply(new RequestOptions()
-                        .override(ResizeImage.getWidth(),ResizeImage.getHeight()))
+                        .override(ResizeImage.getWidth(), ResizeImage.getHeight()))
                 .fitCenter()
                 .into(questionImage);
 
     }
 
     private void getAnswers(int questionNumber) {
-        recyclerView=findViewById(R.id.take_quiz_recycler_view);
+        recyclerView = findViewById(R.id.take_quiz_recycler_view);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(answersAdapter);
-        answersAdapter = new AnswersAdapter (TakeQuizActivity.this, list.get(questionNumber).getAnswers());
+        answersAdapter = new AnswersAdapter(TakeQuizActivity.this, list.get(questionNumber).getAnswers());
         recyclerView.setAdapter(answersAdapter);
     }
-
-
-
-
 
 
 }

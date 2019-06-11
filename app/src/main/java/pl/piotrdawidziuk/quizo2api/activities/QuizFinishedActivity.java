@@ -94,7 +94,6 @@ public class QuizFinishedActivity extends AppCompatActivity {
         if (HashMapSaver.getHashMap("map",this).get(quizId) == null){
             mapOfPositions.put(quizId,0);
             HashMapSaver.saveHashMap("map", mapOfPositions,this);
-            Toast.makeText(this, "ojej null", Toast.LENGTH_SHORT).show();
         } else {
             questionNumber = HashMapSaver.getHashMap("map",this).get(quizId);
         }
@@ -106,6 +105,4 @@ public class QuizFinishedActivity extends AppCompatActivity {
             pointsGained = HashMapSaver.getHashMap("map2",this).get(quizId);
         }
     }
-
-
 }

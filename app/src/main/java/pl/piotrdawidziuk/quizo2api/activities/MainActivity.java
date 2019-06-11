@@ -68,9 +68,6 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
                 if(!response.isSuccessful()){
                     Toast.makeText(MainActivity.this,"Oops!!! Something went wrong!",Toast.LENGTH_SHORT).show();
                 }
-
-                Toast.makeText(MainActivity.this, "NULL!", Toast.LENGTH_SHORT).show();
-
                 mapOfQuizes = new HashMap<>();
                 QuizList quizList = response.body();
 
