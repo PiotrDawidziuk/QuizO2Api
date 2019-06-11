@@ -15,3 +15,6 @@ You can use the app offline, just download all the quizes you need by clicking o
 
 ## UI test
 The app was tested on Xiaomi Redmi 3 (Android 5.1.1, API 22) and virtual Nexus 5X (Android 8.1.0 API 27).
+
+## Sources 
+Color scheme downloaded from  colors from: https://colorhunt.co/.
