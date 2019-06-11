@@ -12,21 +12,27 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="@dimen/text_size_xl_large"/>
+        android:textSize="@dimen/text_size_xl_large"
+        android:gravity="center"
+        android:padding="@dimen/item_padding_default"/>
     <TextView
         android:id="@+id/quiz_finished_points_gained"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/quiz_finished_points_max"
         app:layout_constraintStart_toStartOf="parent"
-        android:textSize="@dimen/text_size_xl_large"/>
+        android:textSize="@dimen/text_size_xl_large"
+        android:gravity="center"
+        android:padding="@dimen/item_padding_default"/>
     <TextView
         android:id="@+id/quiz_finished_percentage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/quiz_finished_points_gained"
         app:layout_constraintStart_toStartOf="parent"
-        android:textSize="@dimen/text_size_xl_large"
+        android:textSize="@dimen/text_size_xxl_large"
+        android:gravity="center"
+        android:padding="@dimen/item_padding_default"
         />
     <Button
         android:id="@+id/quiz_finished_back_to_main_menu"
