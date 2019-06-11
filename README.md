@@ -18,3 +18,6 @@ The app was tested on Xiaomi Redmi 3 (Android 5.1.1, API 22) and virtual Nexus 5
 
 ## Sources 
 Color scheme downloaded from  colors from: https://colorhunt.co/.
+
+## Future Development
+Next step is to add more possibilties (ie. sorting quizes by categiories etc.) and rewriting the app in Kotlin. 
