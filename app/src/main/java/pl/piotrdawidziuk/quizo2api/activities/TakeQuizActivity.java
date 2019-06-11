@@ -182,6 +182,7 @@ public class TakeQuizActivity extends AppCompatActivity {
 
     private void getAnswers(int questionNumber) {
         recyclerView=findViewById(R.id.take_quiz_recycler_view);
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(answersAdapter);
         answersAdapter = new AnswersAdapter (TakeQuizActivity.this, list.get(questionNumber).getAnswers());
