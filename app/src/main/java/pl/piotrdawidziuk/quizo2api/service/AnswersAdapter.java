@@ -46,11 +46,9 @@ public class AnswersAdapter  extends RecyclerView.Adapter<AnswersAdapter.ViewHol
 
         String text = answer.getText();
         String url = answer.getImage().getUrl();
-        //MainPhoto mainPhoto = answer.getMainPhoto();
 
         holder.textView.setText(text);
 
-       // holder.titleTextView.setText(title);
         Glide.with(holder.imageView.getContext())
                 .load(url)
                 .apply(new RequestOptions()

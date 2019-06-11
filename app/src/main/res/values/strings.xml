@@ -13,4 +13,6 @@
     <string name="max_points">Maksymalne punkty:</string>
     <string name="gained_points">Zdobyte punkty:</string>
 
+    <string name="checkbox_click">Zaznacz odpowiedź</string>
+
 </resources>

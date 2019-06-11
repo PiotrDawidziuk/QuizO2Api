@@ -17,7 +17,7 @@
        android:id="@+id/answer_list_checkbox"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:text="Click here!"/>
+       android:text="@string/checkbox_click"/>
 
 
 </LinearLayout>

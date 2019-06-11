@@ -14,6 +14,8 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.List;
 
 import pl.piotrdawidziuk.quizo2api.R;
+import pl.piotrdawidziuk.quizo2api.activities.DetailActivity;
+import pl.piotrdawidziuk.quizo2api.activities.MainActivity;
 import pl.piotrdawidziuk.quizo2api.model.MainPhoto;
 import pl.piotrdawidziuk.quizo2api.model.QuizListItem;
 
@@ -44,8 +46,10 @@ public class QuizItemAdapter extends RecyclerView.Adapter<QuizItemAdapter.ViewHo
 
         String title = quizItem.getTitle();
         MainPhoto mainPhoto = quizItem.getMainPhoto();
-
         holder.titleTextView.setText(title);
+
+
+
         Glide.with(holder.imageView.getContext())
                 .load(mainPhoto.getUrl())
                 .apply(new RequestOptions()
