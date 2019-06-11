@@ -10,9 +10,6 @@ import pl.piotrdawidziuk.quizo2api.activities.MainActivity;
 
 public class ResizeImage {
 
-    private int width;
-    private int height;
-
     public static int getHeight() {
         return getDisplaySize(MainActivity.windowManager).get(1);
     }

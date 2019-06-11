@@ -117,7 +117,6 @@ public class TakeQuizActivity extends AppCompatActivity {
         String questionTest = "";
         imageUrl = "";
 
-
         questionTest += list.get(HashMapSaver.getHashMap("map", this).get(quizId)).getText();
 
         setQuestionImage(HashMapSaver.getHashMap("map", this).get(quizId));
@@ -148,7 +147,6 @@ public class TakeQuizActivity extends AppCompatActivity {
             mapOfPoints = HashMapSaver.getHashMap("map2", this);
         }
 
-
         if (HashMapSaver.getHashMap("map", this).get(quizId) == null) {
             mapOfPositions.put(quizId, 0);
             HashMapSaver.saveHashMap("map", mapOfPositions, this);
@@ -175,7 +173,6 @@ public class TakeQuizActivity extends AppCompatActivity {
                         .override(ResizeImage.getWidth(), ResizeImage.getHeight()))
                 .fitCenter()
                 .into(questionImage);
-
     }
 
     private void getAnswers(int questionNumber) {
@@ -186,6 +183,4 @@ public class TakeQuizActivity extends AppCompatActivity {
         answersAdapter = new AnswersAdapter(TakeQuizActivity.this, list.get(questionNumber).getAnswers());
         recyclerView.setAdapter(answersAdapter);
     }
-
-
 }

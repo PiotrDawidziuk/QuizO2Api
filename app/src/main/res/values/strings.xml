@@ -14,5 +14,6 @@
     <string name="gained_points">Zdobyte punkty:</string>
 
     <string name="checkbox_click">Zaznacz odpowiedź</string>
+    <string name="error_message">Brak połączenia z serwerem</string>
 
 </resources>

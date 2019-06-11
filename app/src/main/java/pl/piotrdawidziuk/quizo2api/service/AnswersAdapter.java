@@ -17,7 +17,7 @@ import java.util.List;
 import pl.piotrdawidziuk.quizo2api.R;
 import pl.piotrdawidziuk.quizo2api.model.Answer;
 
-public class AnswersAdapter  extends RecyclerView.Adapter<AnswersAdapter.ViewHolder> {
+public class AnswersAdapter extends RecyclerView.Adapter<AnswersAdapter.ViewHolder> {
 
     private List<Answer> mData;
     private LayoutInflater mInflater;
@@ -52,19 +52,19 @@ public class AnswersAdapter  extends RecyclerView.Adapter<AnswersAdapter.ViewHol
         Glide.with(holder.imageView.getContext())
                 .load(url)
                 .apply(new RequestOptions()
-                        .override(ResizeImage.getWidth()/2,ResizeImage.getHeight()/2))
+                        .override(ResizeImage.getWidth() / 2, ResizeImage.getHeight() / 2))
                 .fitCenter()
                 .into(holder.imageView);
 
         holder.checkBox.setChecked(lastSelectedPosition == position);
 
-        if(holder.checkBox.isChecked()){
-            if (mData.get(position).getIsCorrect()!=null){
+        if (holder.checkBox.isChecked()) {
+            if (mData.get(position).getIsCorrect() != null) {
                 RIGHT_ANSWER_IS_SELECTED = true;
             }
         }
-        if (holder.checkBox.isChecked()){
-            if (mData.get(position).getIsCorrect()==null){
+        if (holder.checkBox.isChecked()) {
+            if (mData.get(position).getIsCorrect() == null) {
                 RIGHT_ANSWER_IS_SELECTED = false;
             }
         }
@@ -101,10 +101,10 @@ public class AnswersAdapter  extends RecyclerView.Adapter<AnswersAdapter.ViewHol
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mClickListener != null){
+                    if (mClickListener != null) {
                         int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION){
-                            mClickListener.onItemClick(view,position);
+                        if (position != RecyclerView.NO_POSITION) {
+                            mClickListener.onItemClick(view, position);
                         }
                     }
 

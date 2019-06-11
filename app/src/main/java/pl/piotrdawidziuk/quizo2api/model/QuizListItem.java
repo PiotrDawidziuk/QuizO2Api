@@ -1,12 +1,11 @@
 package pl.piotrdawidziuk.quizo2api.model;
 
-import android.content.Intent;
-
 public class QuizListItem {
 
     String id;
     String title;
     MainPhoto mainPhoto;
+
     public String getId() {
         return id;
     }

@@ -40,7 +40,7 @@ public class DetailActivity extends AppCompatActivity {
     String quizDescription;
     ArrayList<Question> questionArrayList;
 
-    Map<String,Quiz> mapOfQuizes;
+    Map<String, Quiz> mapOfQuizes;
 
 
     @Override
@@ -68,7 +68,7 @@ public class DetailActivity extends AppCompatActivity {
         Glide.with(DetailActivity.this)
                 .load(imageUrl)
                 .apply(new RequestOptions()
-                        .override(ResizeImage.getWidth(),ResizeImage.getHeight()))
+                        .override(ResizeImage.getWidth(), ResizeImage.getHeight()))
                 .fitCenter()
                 .into(imageView);
 
@@ -85,13 +85,13 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                    Intent intent = new Intent(DetailActivity.this, TakeQuizActivity.class);
-                    intent.putExtra("test", quizDescription);
+                Intent intent = new Intent(DetailActivity.this, TakeQuizActivity.class);
+                intent.putExtra("test", quizDescription);
 
-                    intent.putExtra("questions", questionArrayList);
-                    intent.putExtra("id", quizId);
+                intent.putExtra("questions", questionArrayList);
+                intent.putExtra("id", quizId);
 
-                    startActivity(intent);
+                startActivity(intent);
 
             }
         });
@@ -112,10 +112,10 @@ public class DetailActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Quiz> call, Response<Quiz> response) {
                         if (!response.isSuccessful()) {
-                            Toast.makeText(DetailActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DetailActivity.this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
                         }
 
-                        mapOfQuizes = HashMapSaver.getQuizHashMap("quizes",DetailActivity.this);
+                        mapOfQuizes = HashMapSaver.getQuizHashMap("quizes", DetailActivity.this);
                         Quiz quiz = response.body();
 
                         mapOfQuizes.put(id, quiz);
@@ -129,11 +129,11 @@ public class DetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Quiz> call, Throwable t) {
-                        Toast.makeText(DetailActivity.this, "Oops! Something went wrong!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailActivity.this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
 
                     }
                 });
-            }else {
+            } else {
                 mapOfQuizes = HashMapSaver.getQuizHashMap("quizes", DetailActivity.this);
 
                 Quiz quiz = HashMapSaver.getQuizHashMap("quizes", DetailActivity.this).get(id);

@@ -14,8 +14,6 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.List;
 
 import pl.piotrdawidziuk.quizo2api.R;
-import pl.piotrdawidziuk.quizo2api.activities.DetailActivity;
-import pl.piotrdawidziuk.quizo2api.activities.MainActivity;
 import pl.piotrdawidziuk.quizo2api.model.MainPhoto;
 import pl.piotrdawidziuk.quizo2api.model.QuizListItem;
 
@@ -49,14 +47,12 @@ public class QuizItemAdapter extends RecyclerView.Adapter<QuizItemAdapter.ViewHo
         holder.titleTextView.setText(title);
 
 
-
         Glide.with(holder.imageView.getContext())
                 .load(mainPhoto.getUrl())
                 .apply(new RequestOptions()
-                        .override(ResizeImage.getWidth(),ResizeImage.getHeight()))
+                        .override(ResizeImage.getWidth(), ResizeImage.getHeight()))
                 .fitCenter()
                 .into(holder.imageView);
-
     }
 
     // total number of rows
@@ -78,21 +74,18 @@ public class QuizItemAdapter extends RecyclerView.Adapter<QuizItemAdapter.ViewHo
             imageView = itemView.findViewById(R.id.quiz_list_item_image);
 
 
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (mClickListener != null){
-                            int position = getAdapterPosition();
-                            if (position != RecyclerView.NO_POSITION){
-                                mClickListener.onItemClick(view,position);
-                            }
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mClickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            mClickListener.onItemClick(view, position);
                         }
-
                     }
-                });
+                }
+            });
         }
-
-
     }
 
     // convenience method for getting data at click position

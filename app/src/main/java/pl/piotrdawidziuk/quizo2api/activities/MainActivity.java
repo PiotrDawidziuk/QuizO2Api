@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
     private QuizItemAdapter quizItemAdapter;
     RecyclerView recyclerView;
     ArrayList<QuizListItem> quizes;
-    Map<String,QuizList> mapOfQuizes;
+    Map<String, QuizList> mapOfQuizes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
 
         quizO2Api = retrofit.create(QuizO2Api.class);
 
-        recyclerView=findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         getQuizes();
@@ -62,43 +62,43 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
     }
 
     private void getQuizes() {
-        if (HashMapSaver.getQuizListHashMap("quiz_menu",MainActivity.this)==null){
-        Call<QuizList> call = quizO2Api.getQuizes();
-        call.enqueue(new Callback<QuizList>() {
-            @Override
-            public void onResponse(Call<QuizList> call, Response<QuizList> response) {
-                if(!response.isSuccessful()){
-                    Toast.makeText(MainActivity.this,"Oops!!! Something went wrong!",Toast.LENGTH_SHORT).show();
+        if (HashMapSaver.getQuizListHashMap("quiz_menu", MainActivity.this) == null) {
+            Call<QuizList> call = quizO2Api.getQuizes();
+            call.enqueue(new Callback<QuizList>() {
+                @Override
+                public void onResponse(Call<QuizList> call, Response<QuizList> response) {
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(MainActivity.this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
+                    }
+                    mapOfQuizes = new HashMap<>();
+                    QuizList quizList = response.body();
+
+                    mapOfQuizes.put("quiz_menu", quizList);
+                    HashMapSaver.saveHashMap("quiz_menu", mapOfQuizes, MainActivity.this);
+
+                    quizes = quizList.getItems();
+
+                    quizItemAdapter = new QuizItemAdapter(MainActivity.this, quizes);
+                    recyclerView.setAdapter(quizItemAdapter);
+
+                    quizItemAdapter.setClickListener(MainActivity.this);
+
                 }
-                mapOfQuizes = new HashMap<>();
-                QuizList quizList = response.body();
 
-                mapOfQuizes.put("quiz_menu",quizList);
-                HashMapSaver.saveHashMap("quiz_menu",mapOfQuizes,MainActivity.this);
-
-                quizes = quizList.getItems();
-
-                quizItemAdapter=new QuizItemAdapter(MainActivity.this, quizes);
-                recyclerView.setAdapter(quizItemAdapter);
-
-                quizItemAdapter.setClickListener(MainActivity.this);
-
-            }
-
-            @Override
-            public void onFailure(Call<QuizList> call, Throwable t) {
-                Toast.makeText(MainActivity.this,"Oops! Something went wrong!",Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<QuizList> call, Throwable t) {
+                    Toast.makeText(MainActivity.this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
+                }
+            });
 
         } else {
-            mapOfQuizes = HashMapSaver.getQuizListHashMap("quizes",MainActivity.this);
+            mapOfQuizes = HashMapSaver.getQuizListHashMap("quizes", MainActivity.this);
 
-            QuizList quizList = HashMapSaver.getQuizListHashMap("quiz_menu",MainActivity.this).get("quiz_menu");
+            QuizList quizList = HashMapSaver.getQuizListHashMap("quiz_menu", MainActivity.this).get("quiz_menu");
 
             quizes = quizList.getItems();
 
-            quizItemAdapter=new QuizItemAdapter(MainActivity.this, quizes);
+            quizItemAdapter = new QuizItemAdapter(MainActivity.this, quizes);
             recyclerView.setAdapter(quizItemAdapter);
 
             quizItemAdapter.setClickListener(MainActivity.this);
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
 
         detailIntent.putExtra(EXTRA_ID, clickedItem.getId());
         detailIntent.putExtra(EXTRA_TITLE, clickedItem.getTitle());
-        detailIntent.putExtra(EXTRA_URL,clickedItem.getMainPhoto().getUrl());
+        detailIntent.putExtra(EXTRA_URL, clickedItem.getMainPhoto().getUrl());
         startActivity(detailIntent);
     }
 }
