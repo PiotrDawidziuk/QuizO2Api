@@ -22,7 +22,9 @@
             android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_medium"/>
 
     </LinearLayout>
 
