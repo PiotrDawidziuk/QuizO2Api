@@ -102,6 +102,7 @@ public class TakeQuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_quiz);
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        getSupportActionBar().hide();
 
         Intent intent = getIntent();
         quizId = intent.getStringExtra("id");

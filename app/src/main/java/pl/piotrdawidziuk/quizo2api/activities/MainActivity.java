@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements QuizItemAdapter.I
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().hide();
+
         windowManager = getWindowManager();
 
         Retrofit retrofit = new Retrofit.Builder()

@@ -48,6 +48,8 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        getSupportActionBar().hide();
+
         Intent intent = getIntent();
         final String quizId = intent.getStringExtra(EXTRA_ID);
         final String quizTitle = intent.getStringExtra(EXTRA_TITLE);

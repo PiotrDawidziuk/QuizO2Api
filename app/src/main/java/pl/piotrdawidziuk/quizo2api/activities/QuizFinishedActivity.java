@@ -31,6 +31,7 @@ public class QuizFinishedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_finished);
+        getSupportActionBar().hide();
 
         pointsMaxTextView = findViewById(R.id.quiz_finished_points_max);
         pointsGainedTextView = findViewById(R.id.quiz_finished_points_gained);
