@@ -24,6 +24,7 @@
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:padding="@dimen/item_padding_small"
                 />
 
             <TextView
@@ -33,6 +34,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/simpleProgressBar"
                 android:textSize="@dimen/text_size_large"
+                android:padding="@dimen/item_padding_default"
+                android:gravity="center"
                 />
 
             <ImageView
